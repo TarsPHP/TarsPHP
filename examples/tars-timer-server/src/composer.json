@@ -15,11 +15,5 @@
     "minimum-stability": "stable",
     "scripts" : {
         "deploy" : "\\Tars\\deploy\\Deploy::run"
-    },
-    "repositories": {
-        "tars": {
-            "type": "composer",
-            "url": "https://raw.githubusercontent.com/Tencent/Tars/master/php/dist/tarsphp.json"
-        }
     }
 }
