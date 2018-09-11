@@ -3,9 +3,9 @@
 TARS-PHP是针对php使用tars二进制协议，以及tars平台整体运维、RPC等一系列能力的解决方案。它主要由如下的几个部分组成：
 
 如果你想要快速的体验tars-server,请进入examples目录,里面有详尽的三种服务的部署guideline和开发guideline
-* [tcp server](https://github.com/Tencent/Tars/blob/master/php/examples/tars-tcp-server/README.md)
-* [http server](https://github.com/Tencent/Tars/blob/master/php/examples/tars-http-server/README.md)
-* [timer server ](https://github.com/Tencent/Tars/blob/master/php/examples/tars-timer-server/README.md)
+* [tcp server](https://github.com/TarsPHP/TarsPHP/blob/master/examples/tars-tcp-server/README.md)
+* [http server](https://github.com/TarsPHP/TarsPHP/blob/master/examples/tars-http-server/README.md)
+* [timer server ](https://github.com/TarsPHP/TarsPHP/blob/master/examples/tars-timer-server/README.md)
 
 ## tars-client
 
@@ -15,7 +15,7 @@ tars-client中提供了对tars服务进行调用的php能力，包括：
 * 主调上报
 * 自动寻址模块
 
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-client/README.md)
+[详细说明](https://github.com/TarsPHP/tars-client/blob/master/README.md)
 
 ## tars-server
 tars-server提供了底层的server框架,同时支持如下特性
@@ -26,61 +26,61 @@ tars-server提供了底层的server框架,同时支持如下特性
 * 上报、监控、日志的集成
 * tars平台发布支持
 
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-server/README.md)
+[详细说明](https://github.com/TarsPHP/tars-server/blob/master/README.md)
 
 ## tars-config 
 
 从tars平台的配置服务拉取配置文件的能力模块。
 
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-config/README.md)
+[详细说明](https://github.com/TarsPHP/tars-config/blob/master/README.md)
 
 ## tars-deploy 
 
 进行tars-server业务代码打包的模块。
 
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-deploy/README.md)
+[详细说明](https://github.com/TarsPHP/tars-deploy/blob/master/README.md)
 
 ## tars-extension
 
 tars底层依赖的php扩展代码
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-extension/README.md)
+[详细说明](https://github.com/TarsPHP/tars-extension/blob/master/README.md)
  
 ## tars-log
 
 tars进行远程日志写入的模块
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-log/README.md)
+[详细说明](https://github.com/TarsPHP/tars-log/blob/master/README.md)
  
 ## tars-monitor
 
 tars进行主调上报和特性上报的功能模块
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-monitor/README.md)
+[详细说明](https://github.com/TarsPHP/tars-monitor/blob/master/README.md)
  
 ## tars-registry
  
 tars进行主控寻址的功能模块
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-registry/README.md)
+[详细说明](https://github.com/TarsPHP/tars-registry/blob/master/README.md)
  
 ## tars-report
  
 tars进行keep-alive服务保活上报的模块
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-report/README.md)
+[详细说明](https://github.com/TarsPHP/tars-report/blob/master/README.md)
 
 ## tars-utils
  
 tars进行配置文件解析的模块
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars-utils/README.md)
+[详细说明](https://github.com/TarsPHP/tars-utils/blob/master/README.md)
 
 ## examples
 
 三个实际的tcp、http、timer的server实例和说明:
-* [tcp-server](https://github.com/Tencent/Tars/tree/master/php/examples/tars-tcp-server)
-* [http-server](https://github.com/Tencent/Tars/tree/master/php/examples/tars-http-server)
-* [timer-server](https://github.com/Tencent/Tars/tree/master/php/examples/tars-timer-server) 
+* [tcp-server](https://github.com/TarsPHP/TarsPHP/tree/master/examples/tars-tcp-server)
+* [http-server](https://github.com/TarsPHP/TarsPHP/tree/master/examples/tars-http-server)
+* [timer-server](https://github.com/TarsPHP/TarsPHP/tree/master/examples/tars-timer-server) 
 
 ## tars2php 
 
 代码自动生成的工具,可以自动生成server和client端的代码。
-[详细说明](https://github.com/Tencent/Tars/blob/master/php/tars2php/README.md)
+[详细说明](https://github.com/TarsPHP/tars2php/blob/master/README.md)
  
 ## tars平台针对php修改说明
 
