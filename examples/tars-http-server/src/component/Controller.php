@@ -13,15 +13,13 @@ use Tars\core\Response;
 
 class Controller
 {
-    protected $server;
     protected $request;
     protected $response;
 
-    public function __construct(Request $request, Response $response, $server)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
-        $this->server = $server;
     }
 
     public function getResponse()
