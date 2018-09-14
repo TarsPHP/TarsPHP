@@ -13,6 +13,8 @@ class ENVConf
     public static $locator
         = 'tars.tarsregistry.QueryObj@tcp -h 172.16.0.161 -p 17890';
 
+    public static $logPath = '/usr/local/app/tars/app_log/PHPTest/PHPHttpServer';
+
     public static $socketMode = 2;
 
     public static function getTarsConf()

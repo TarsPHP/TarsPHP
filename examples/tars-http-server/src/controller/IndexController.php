@@ -15,7 +15,10 @@ use HttpServer\servant\PHPTest\PHPServer\obj\classes\LotofTags;
 use HttpServer\servant\PHPTest\PHPServer\obj\classes\OutStruct;
 use HttpServer\servant\PHPTest\PHPServer\obj\classes\SimpleStruct;
 use HttpServer\servant\PHPTest\PHPServer\obj\TestTafServiceServant;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Tars\client\CommunicatorConfig;
+use Tars\log\handler\TarsHandler;
 
 class IndexController extends Controller
 {
@@ -305,12 +308,43 @@ class IndexController extends Controller
     {
         $config = new \Tars\client\CommunicatorConfig();
         $config->setLocator(ENVConf::$locator);
-        $config->setModuleName('tedtest');
+        $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setCharsetName('UTF-8');
 
         $logServant = new \Tars\log\LogServant($config);
         $result = $logServant->logger('PHPTest', 'PHPHttpServer', 'ted.log', '%Y%m%d', ['hahahahaha']);
 
         $this->sendRaw(json_encode($result, JSON_UNESCAPED_UNICODE));
+    }
+
+    // curl "172.16.0.161:28887/Index/TestMonolog?a=b" -i
+    public function actionTestMonolog()
+    {
+        $config = new \Tars\client\CommunicatorConfig();
+        $config->setLocator(ENVConf::$locator);
+        $config->setModuleName('PHPTest.PHPHttpServer');
+        $config->setCharsetName('UTF-8');
+
+        $logger = new Logger("tars_logger");
+        $tarsHandler = new TarsHandler($config);
+        //local log
+        $streamHandler = new StreamHandler(ENVConf::$logPath . "/" . __CLASS__  . ".log");
+
+        $logger->pushHandler($tarsHandler);
+        $logger->pushHandler($streamHandler);
+
+        $array = [
+            "key1" => "value1",
+            "key2" => "value2",
+            "key3" => "value3"
+        ];
+        $logger->debug("add a debug message", $array);
+        $logger->info("add a info message", $array);
+        $logger->notice("add a notice message", $array);
+        $logger->warning("add a warning message", $array);
+        $logger->error("add a error message", $array);
+        $logger->critical("add a critical message", $array);
+        $logger->emergency("add a emergency message", $array);
+        $this->sendRaw(json_encode(['code' => 0], JSON_UNESCAPED_UNICODE));
     }
 }
