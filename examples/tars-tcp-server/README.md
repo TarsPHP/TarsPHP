@@ -79,7 +79,7 @@
 ## 开发guideline
 
 
-1. 自行撰写了一份tars文件,姑且命名为hello.tars
+1. 自行撰写了一份tars文件,姑且命名为example.tars
 
 2. 新建对应的目录结构,固定为scripts、src和tars
 
@@ -90,7 +90,7 @@ cd ../tars/
 php ../src/vendor/phptars/tars2php/src/tars2php.php ./tars.proto.php
 ```
 
-4. 将hello.tars放入tars文件夹中,同时在tars文件夹下面新建tars.proto.php文件:
+4. 将example.tars放入tars文件夹中,同时在tars文件夹下面新建tars.proto.php文件:
 ```
 <?php
 return array(
@@ -99,7 +99,7 @@ return array(
     'objName' => 'obj',
     'withServant' => true,//决定是服务端,还是客户端的自动生成
     'tarsFiles' => array(
-        './hello.tars'
+        './example.tars'
     ),
     'dstPath' => '../src/servant',
     'namespacePrefix' => 'Server\servant',
