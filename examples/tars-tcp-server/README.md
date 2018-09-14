@@ -99,7 +99,7 @@ return array(
     'objName' => 'obj',
     'withServant' => true,//决定是服务端,还是客户端的自动生成
     'tarsFiles' => array(
-        './example.tars'
+        './hello.tars'
     ),
     'dstPath' => '../src/servant',
     'namespacePrefix' => 'Server\servant',
