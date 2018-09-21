@@ -1,0 +1,33 @@
+[submodule "tars2php"]
+	path = tars2php
+	url = https://github.com/TarsPHP/tars2php.git
+[submodule "tars-utils"]
+	path = tars-utils
+	url = https://github.com/TarsPHP/tars-utils.git
+[submodule "tars-registry"]
+	path = tars-registry
+	url = https://github.com/TarsPHP/tars-registry.git
+[submodule "tars-server"]
+	path = tars-server
+	url = https://github.com/TarsPHP/tars-server.git
+[submodule "tars-report"]
+	path = tars-report
+	url = https://github.com/TarsPHP/tars-report.git
+[submodule "tars-monitor"]
+	path = tars-monitor
+	url = https://github.com/TarsPHP/tars-monitor.git
+[submodule "tars-log"]
+	path = tars-log
+	url = https://github.com/TarsPHP/tars-log.git
+[submodule "tars-deploy"]
+	path = tars-deploy
+	url = https://github.com/TarsPHP/tars-deploy.git
+[submodule "tars-config"]
+	path = tars-config
+	url = https://github.com/TarsPHP/tars-config.git
+[submodule "tars-client"]
+	path = tars-client
+	url = https://github.com/TarsPHP/tars-client.git
+[submodule "tars-extension"]
+	path = tars-extension
+	url = https://github.com/TarsPHP/tars-extension.git
