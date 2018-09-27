@@ -1,0 +1,39 @@
+module service
+{
+    //servant:QD.UserService.UserObj;
+
+    //输入参数通用结构体
+    struct CommonInParam {
+        0 optional int appId; //场景AppId
+        1 optional int areaId;  //场景AreaId
+        2 optional long userId; //用户信息
+        3 optional string userIp; //来源名称
+        4 optional string serverIp; //调用方服务器ip
+    };
+
+    //输出参数通用结构体
+    struct CommonOutParam {
+        0 require int code;  //接口返回码
+        1 require string message;  //接口返回提示信息
+    };
+
+    struct User {
+        0 optional long userId;
+        1 optional string nickname;
+        2 optional string avatar;
+        4 optional long createTime;
+    }
+
+
+    interface UserService
+    {
+        int ping();
+
+        void getUsersInfoByIds(CommonInParam inParam, vector<long> usersId, out CommonOutParam outParam, out map<long, User> info);
+
+        void checkSession(CommonInParam inParam, long userId, string sessionKey, out CommonOutParam outParam);
+
+        void login(CommonInParam inParam, string nickname, string password, out CommonOutParam outParam, out long userId, out string sessionKey);
+    };
+
+}
