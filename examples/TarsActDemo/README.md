@@ -15,19 +15,19 @@ user_info.sql是QD.UserServer服务的用户信息表
 
 # 如何部署
 
-1.修改QD.UserService中src/ENVConf.php 中的mysql 配置，设置你们自己的mysql ip、port和db名字
-2.导入user_info.sql到你的mysql中。
-3.修改QD.ActCommentServer中src/ENVConf.php 中的redis 配置，设置你们自己的redis ip、port
-4.依次cd 到各个服务的 src 目录，执行 composer install，安装composer 依赖
-5.依次cd 到各个服务的 src 目录，执行 composer run-script deploy 打包代码
-6.部署三个服务，QD.ActHttpServer是http服务，需要固定一个端口，选 非tars服务，其他两个是tcp 服务，端口随意，选 tars服务。
+1. 修改QD.UserService中src/ENVConf.php 中的mysql 配置，设置你们自己的mysql ip、port和db名字
+2. 导入user_info.sql到你的mysql中。
+3. 修改QD.ActCommentServer中src/ENVConf.php 中的redis 配置，设置你们自己的redis ip、port
+4. 依次cd 到各个服务的 src 目录，执行 composer install，安装composer 依赖
+5. 依次cd 到各个服务的 src 目录，执行 composer run-script deploy 打包代码
+6. 部署三个服务，QD.ActHttpServer是http服务，需要固定一个端口，选 非tars服务，其他两个是tcp 服务，端口随意，选 tars服务。
 (注意部署的时候在平台上配置的ServantName要和我上面写的全称一样，如果你需要修改，请同步修改tars.proto.php，actComment.proto.php和userInfo.proto.php，并从新生成protocol中代码)
-7.配置你的nginx，proxy_pass 修改为你的 QD.ActHttpServer服务的ip地址和端口
-8.拷贝index.html 到你的/data/website/tarsact/中
-9.打开act.tars.local看一下是否可以访问
-10.输入一个用户名 yong密码123456执行以下登录
-11.发个弹幕试试
-12.刷新一下，你发的弹幕出来了吗？恭喜你 O(∩_∩)O哈哈~
+7. 配置你的nginx，proxy_pass 修改为你的 QD.ActHttpServer服务的ip地址和端口
+8. 拷贝index.html 到你的/data/website/tarsact/中
+9. 打开act.tars.local看一下是否可以访问
+10. 输入一个用户名 yong密码123456执行以下登录
+11. 发个弹幕试试
+12. 刷新一下，你发的弹幕出来了吗？恭喜你 O(∩_∩)O哈哈~
 
 #	其他
 
