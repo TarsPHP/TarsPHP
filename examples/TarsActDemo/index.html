@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="正在打开...">
+    <meta name="description" content="正在打开...">
+    <meta name="robots" content="all">
+    <meta name="baiduspider" content="all">
+    <meta name="googlebot" content="all">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>Tars测试</title>
+    <style>
+    html,body,p{
+        margin: 0px;
+        padding: 0px;
+    }
+    .abs{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        line-height: 100px;
+        width: 100%;
+        overflow-x: scroll;
+        border-bottom: 1px solid; #ccc;
+        background-color: #fff;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .dm-wrapper{
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        height: 200px;
+        list-style: none;
+        padding: 0;
+    }
+    .dm-wrapper .dm-item {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        line-height: 28px;
+        padding: 4px 20px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 100px;
+        text-align: left;
+        white-space: pre;
+        font-size: 14px;
+        font-weight: 300;
+        color: #fff;
+    }
+    .dm-wrapper .dm-item[data-rank="0"]{
+        top: 0;
+    }
+    .dm-wrapper .dm-item[data-rank="1"]{
+        top: 50%;
+    }
+
+    .search-input{
+        background: none;
+        display: block;
+        margin: 2%;
+        height: 40px;
+        width: 94%;
+        outline: none;
+        border: 1px solid;
+        padding: 0 5px;
+    }
+    .search-input::placeholder{
+        color: #a3abb8;
+    }
+
+    .login-input{
+        background: none;
+        margin: 2%;
+        height: 40px;
+        width: 44%;
+        outline: none;
+        border: 1px solid;
+        padding: 0 5px;
+    }
+    .login-input::placeholder{
+        color: #a3abb8;
+    }
+
+    .btn{
+        display: block;
+        margin: 2%;
+        width: 96%;
+        line-height: 40px;
+        background-color: #f00;
+        color: #fff;
+        font-size: 16px;
+    }
+    </style>
+</head>
+<body>
+    <ul class = "dm-wrapper">
+        <li class = "dm-item">收到了房间爱上了地方</li>
+    </ul>
+    <div style = "">
+        <input class = "search-input" type = "text" id = "content" placeholder = "请输入"/>
+        <input class = "btn" id = "btn" type = "button" value = "提交"/>
+    </div>
+    <br/>
+    <dir id="user-info"><p></p></dir>
+    <div style = "">
+        <input class = "login-input" type = "text" id = "nickname" placeholder = "用户昵称"/>
+        <input class = "login-input" type = "password" id = "password" placeholder = "密码"/>
+        <input class = "btn" id = "login-btn" type = "button" value = "登录"/>
+    </div>
+</body>
+<script data-ignore="true" src="http://qidian.gtimg.com/lib/jquery.1.9.1.min.js"></script>
+<script>
+$(function(){
+    function Barrage(options){
+        if(!(this instanceof Barrage)){
+            return new Barrage( options );
+        }
+ 
+        // 初始化配置参数
+        this.options = this.initOption(options);
+ 
+        // 事件初始化
+        this.initEvent();
+ 
+    }
+ 
+    // 初始化配置参数
+    Barrage.prototype.initOption = function(options){
+        if(!options || typeof options != "object"){
+            throw new Error("在初始化Barrage时，传入的参数需要是一个对象");
+        }
+ 
+        try{
+            if(options.wrapper.size() != 1){
+                throw new Error();
+            }
+        }catch(e){
+            throw new Error("初始化Barrage时，传入的wrapper无效！");
+        }
+
+        // 元素的宽度
+        options.scrollWidth = 3*options.wrapper.width();
+ 
+        // 移动事件，1，2，3，
+        if(isNaN(options.speed)){
+            options.speed = 1;
+        }else{
+            options.speed = options.speed - 0 || 1;
+        }
+
+        // 以5s为基准，越大越快
+        options.speed = 15 / options.speed;
+ 
+        // 循环的data属性
+        if(!(options.data instanceof Array)){
+            options.data = [];
+        }
+ 
+        // 只循环一次的data
+        options.onceData = [];
+ 
+        // 当前正在循环到的第几条数据
+        options.index = 0;
+ 
+        // 是否为循环限制
+        options.circle = options.circle === false ? false : true;
+ 
+        // 默认的模板
+        if(typeof options.tmp != "function"){
+            options.tmp = function(data,rank){
+                return '<li class = "barrage-item" data-rank = "'+rank+'">'+data.content+'</li>';
+            };
+        }
+ 
+        // 状态码的枚举值
+        this.statusCode = {
+            unBeigin : "1",
+            activity : "2"
+        };
+ 
+        // 当前的状态
+        this.status = this.statusCode.unBeigin;
+ 
+        // 当前的元素显示隐藏的状态
+        this.isShow = true;
+ 
+        return options;
+    };
+
+    // 创建一条弹幕元素
+    Barrage.prototype.createEle = function(rank,isBegin){
+        var options = this.options,
+            data = options.data,
+            html = "",
+            id = ""+(new Date()).getTime()+rank,
+            onceData = options.onceData;
+ 
+        // 如果当前的列表，已经循环完了，则根据是否轮播，来做不同的处理
+        if(!onceData.length && options.index >= data.length){
+            if(options.circle === true){
+                data.sort(function(){
+                    return Math.random() - 0.5 >=0 ? 1 : -1;
+                });
+                options.index = 0;
+            }else{
+                return "";
+            }
+        }
+ 
+        // 表示需要轮播
+        if(onceData.length){
+            html = $(options.tmp(onceData.shift(),rank));
+        }else{
+            html = $(options.tmp(data[options.index],rank));
+            options.index++;
+        }
+
+        var delay = isBegin !== true ? 0 : 100*Math.random();
+
+        // 把元素添加到wrapper内部
+        options.wrapper.append(html);
+
+        var cssStr = 'transform '+options.speed+'s linear '+delay+'ms';
+        // 设置CSS样式
+        var cssObj = {
+            '-webkit-transition':cssStr,
+            'transition':cssStr,
+        };
+
+        html.css(cssObj);
+
+        cssStr = 'translate3d(-'+options.scrollWidth+'px,0,0)';
+        cssObj["-webkit-transform"] = cssStr;
+        cssObj["transform"] = cssStr;
+
+        // 直接一起设置会导致动画无效，所以延时一点时间。
+        setTimeout(function(){
+            html.css(cssObj);
+        });
+
+        // 设置移除的时间
+        var timer = setTimeout(function(){
+            html.remove();
+        },options.speed*1000*1.1);
+
+        return {
+            ele : html,
+            width : html.outerWidth()
+        };
+
+    };
+ 
+    // 初始化事件
+    Barrage.prototype.initEvent = function(){
+        var options = this.options,
+            data = options.data,
+            scrollData = [],
+            statusCode = this.statusCode,
+            that = this,
+            wrapper = options.wrapper,
+            rankCount = options.rank || 0;
+    
+        function _isNeedCreateNew(data){
+            var ele = data.ele;
+            var width = data.width;
+            var transformStr = ele.css("transform") || "";
+            var arr = transformStr.substring(7,transformStr.length-1).split(",");
+            var translatex = arr[4] - 0;
+
+            // 当间距大于10px的时候，就可以开始加载下一条了。
+            if(translatex + width < -10){
+                return true;
+            }
+
+            return false;
+        }
+
+        // 滚动起来吧
+        function _scroll(){
+            
+            if(that.status != statusCode.activity || !data.length){
+                return "";
+            }
+ 
+            // 直接执行滚动
+            var oneDate = null,
+                isBegin = false;
+
+            // 
+            for(i = 0 ; i < rankCount; i++){
+                oneDate = scrollData[i];
+                isBegin = !oneDate ? true : false;
+
+                if(!oneDate || _isNeedCreateNew(oneDate)){
+                    scrollData[i] = that.createEle(i,isBegin);
+                }
+            }
+ 
+            setTimeout(_scroll, 100);
+        }
+ 
+        // 开始滚动
+        function _begin(){
+            // 更改状态
+            that.status = statusCode.activity;
+ 
+            // 开始滚动
+            _scroll();
+        }
+        this._begin = _begin;
+ 
+        // 结束时
+        function _stop(){
+            options.wrapper.html("");
+            scrollData.length = 0;
+        }
+        this._stop = _stop;
+ 
+    };
+    
+    // 弹幕开始
+    Barrage.prototype.begin = function(){
+        
+        if(this.isShow !== true){
+            return "";
+        }
+ 
+        if(this.status != this.statusCode.activity){
+            this.status = this.statusCode.activity;
+            this._begin();
+        }
+    };
+ 
+    // 弹幕停止
+    Barrage.prototype.stop = function(){
+ 
+        if(this.isShow !== true){
+            return "";
+        }
+ 
+        if(this.status != this.statusCode.unBeigin){
+            this.status = this.statusCode.unBeigin;
+            this._stop();
+        }
+    };
+ 
+    // 弹幕显示
+    Barrage.prototype.show = function(){
+        this.options.wrapper.show();
+        this.isShow = true;
+        this.begin();
+    };
+ 
+    // 弹幕隐藏
+    Barrage.prototype.hide = function(){
+        this.stop();
+        this.isShow = false;
+        this.options.wrapper.hide();
+    };
+ 
+    // 插入一条弹幕
+    // data = {id : "",txt : ""};
+    // once，表示是否只显示一次，默认显示一次
+    Barrage.prototype.insert = function(data,once){
+        if(!data || typeof data != "object"){
+            return "";
+        }
+ 
+        if(once === false){
+            this.options.data.push(data);
+        }else{
+            this.options.onceData.push(data);
+        }
+ 
+        // 尝试去播放，因为如果当前已经停止了，那么insert之后，要把这个滚动起来
+        this.begin();
+    };
+ 
+    // 用于重新更新数据
+    // data格式是一个数组，与实例化时的格式相同
+    Barrage.prototype.reset = function(data){
+        if(!data || !(data instanceof Array)){
+            return "";
+        }
+ 
+        var cData = this.options.data,
+            i = 0,
+            len = data.length;
+ 
+        cData.length = 0;
+        // 清空原有的数据
+ 
+        $.extend(cData,data);
+ 
+        // 尝试去播放，因为如果当前已经停止了，那么insert之后，要把这个滚动起来
+        this.begin();
+ 
+    };
+
+    // 用户信息
+    (function() {
+        var ajaxOptions = {
+            url : "index/index",
+            success : _ajaxSucc,
+            error : function(){}
+        };
+
+        function _ajaxSucc(json){
+            if(typeof json == "string"){
+                json = JSON.parse(json);
+            }
+
+            if(json.code != 0){
+                alert(json.msg);
+                return "";
+            }
+            if(json.data.isLogin == 0){
+                $("#user-info p").html("未登录");
+                
+            } else {
+                $("#user-info p").html("昵称是" + json.data.userInfo.nickname + ", userId:" + json.data.userInfo.userId);
+            }
+            return "";
+        }
+
+        $.ajax(ajaxOptions);
+    })();
+
+
+    // 弹幕墙
+    (function() {
+        var ajaxOptions = {
+            url : "Festival/GetBullet",
+            success : _ajaxSucc,
+            error : function(){}
+        };
+
+        function _ajaxSucc(json){
+            if(typeof json == "string"){
+                json = JSON.parse(json);
+            }
+            barrage.reset(json.data.sort(function(){return 0.5 - Math.random()}));
+            barrage.begin();
+        }
+
+        window.barrage = new Barrage({
+            wrapper : $(".dm-wrapper").eq(0),
+            rank : 2,
+            tmp : function(data,rank){
+                if(!data) {
+                    return '';
+                }
+
+                return '<li class = "dm-item" data-rank = "'+rank+'">'+data.content+'</li>';
+            },
+            data : [],
+        });
+
+        $.ajax(ajaxOptions);
+    })();
+
+    // 发弹幕
+    (function(){
+        var ajaxOptions = {
+            data : {
+                content: ""
+            },
+            type : "POST",
+            url : "Festival/CreateBullet",
+            success : function(json){
+                if(typeof json == "string"){
+                    json = JSON.parse(json);
+                }
+
+                if(json.code != 0){
+                    alert(json.msg);
+                    return "";
+                }
+                alert("发布成功");
+                barrage.insert({'content':ajaxOptions.data.content});
+            },
+            error : function(){}
+        };
+
+        var btn = $("#btn");
+        var content = $("#content");
+
+        btn.on("click",function(){
+            var v = $.trim(content.val());
+
+            if(!v){
+                alert("请输入！");
+                return false;
+            }
+
+            ajaxOptions.data.content = v;
+            $.ajax(ajaxOptions);
+        });
+    })();
+
+    // 登录
+    (function(){
+        var ajaxOptions = {
+            data : {
+                nickname: "",
+                password: ""
+            },
+            type : "POST",
+            url : "index/login",
+            success : function(json){
+                if(typeof json == "string"){
+                    json = JSON.parse(json);
+                }
+
+                if(json.code != 0){
+                    alert(json.msg);
+                    return "";
+                }
+                alert("登录成功");
+                window.location.reload();
+            },
+            error : function(){}
+        };
+
+        var lgonbtn = $("#login-btn");
+        var nickname = $("#nickname");
+        var password = $("#password");
+
+        lgonbtn.on("click",function(){
+            var n = $.trim(nickname.val());
+
+            if(!n){
+                alert("请输入昵称！");
+                return false;
+            }
+
+            var p = $.trim(password.val());
+
+            if(!p){
+                alert("请输入密码！");
+                return false;
+            }
+
+            ajaxOptions.data.nickname = n;
+            ajaxOptions.data.password = p;
+            $.ajax(ajaxOptions);
+        });
+    })();
+});
+</script>
+</html>
