@@ -8,6 +8,7 @@
 
 namespace WebsocketServer\controller;
 
+use Tars\App;
 use WebsocketServer\component\Controller;
 use WebsocketServer\component\FileFdStore;
 

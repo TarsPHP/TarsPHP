@@ -8,19 +8,28 @@
 
 namespace Server\conf;
 
+use Tars\App;
+
 class ENVConf
 {
-    public static $locator
-        = 'tars.tarsregistry.QueryObj@tcp -h 172.16.0.161 -p 17890';
+    /**
+     * @return mixed
+     * 获取当前环境的主控配置
+     */
+    public static function getLocator() {
+        $tarsConfig = App::getTarsConfig();
+
+        $tarsClientConfig = $tarsConfig['tars']['application']['client'];
+
+        $locator = $tarsClientConfig['locator'];
+
+        return $locator;
+    }
 
     public static $socketMode = 2;
 
     public static function getTarsConf()
     {
-        $table = $_SERVER->table;
-        $result = $table->get('tars:php:tarsConf');
-        $tarsConf = unserialize($result['tarsConfig']);
-
-        return $tarsConf;
+        return App::getTarsConfig();
     }
 }

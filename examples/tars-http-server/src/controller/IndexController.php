@@ -17,6 +17,7 @@ use HttpServer\servant\PHPTest\PHPServer\obj\classes\SimpleStruct;
 use HttpServer\servant\PHPTest\PHPServer\obj\TestTafServiceServant;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Tars\App;
 use Tars\client\CommunicatorConfig;
 use Tars\log\handler\TarsHandler;
 
@@ -87,7 +88,7 @@ class IndexController extends Controller
     public function actionTestSelf()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(3);
 
@@ -101,7 +102,7 @@ class IndexController extends Controller
     public function actionTestProperty()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -115,7 +116,7 @@ class IndexController extends Controller
     public function actionTestLotofTags()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -133,7 +134,7 @@ class IndexController extends Controller
     public function actionTestBasic()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -147,7 +148,7 @@ class IndexController extends Controller
     public function actionTestStruct()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -167,9 +168,11 @@ class IndexController extends Controller
     public function actionTestMap()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
+
+        App::getLogger()->debug("config" . var_export($config,true));
 
         $servant = new TestTafServiceServant($config);
 
@@ -188,7 +191,7 @@ class IndexController extends Controller
     public function actionTestVector()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -208,7 +211,7 @@ class IndexController extends Controller
     public function actionTestReturn()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -222,7 +225,7 @@ class IndexController extends Controller
     public function actionTestReturn2()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -236,7 +239,7 @@ class IndexController extends Controller
     public function actionTestComplicatedStruct()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -261,7 +264,7 @@ class IndexController extends Controller
     public function actionTestComplicatedMap()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -284,7 +287,7 @@ class IndexController extends Controller
     public function actionTestEmpty()
     {
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(ENVConf::$socketMode);
 
@@ -307,7 +310,7 @@ class IndexController extends Controller
     public function actionTestRemoteLog()
     {
         $config = new \Tars\client\CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setCharsetName('UTF-8');
 
@@ -321,14 +324,14 @@ class IndexController extends Controller
     public function actionTestMonolog()
     {
         $config = new \Tars\client\CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setCharsetName('UTF-8');
 
         $logger = new Logger("tars_logger");
         $tarsHandler = new TarsHandler($config);
         //local log
-        $streamHandler = new StreamHandler(ENVConf::$logPath . "/" . __CLASS__  . ".log");
+        $streamHandler = new StreamHandler(ENVConf::getLogPath() . "/" . __CLASS__  . ".log");
 
         $logger->pushHandler($tarsHandler);
         $logger->pushHandler($streamHandler);

@@ -1,0 +1,88 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+p {
+  display: inline-block;
+  padding: 10px 12px;
+  margin: 4px 0;
+  border-radius: 10px;
+}
+
+.tip {
+  width: 100%;
+  text-align: center;
+  font-size: 0.7em;
+  opacity: 0.5;
+}
+
+.message {
+  background: #1b8bea;
+  color: #fff;
+}
+
+.row {
+  margin-top: 16px;
+}
+
+.status {
+  color: #6b93b5;
+}
+
+#socketstatus, #roomNumKey {
+  color: #215179;
+}
+
+input {
+  width: 240px;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #1b8bea;
+}
+
+button {
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid #aaa;
+  outline: none;
+}
+
+button:active {
+  border: 1px solid #aaa;
+  box-shadow: 0 0 2px #aaa;
+}
+
+#outputdiv {
+  flex : 1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+#output {
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1;
+}

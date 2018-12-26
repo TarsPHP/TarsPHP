@@ -8,21 +8,43 @@
 
 namespace HttpServer\conf;
 
+use Tars\App;
+
 class ENVConf
 {
-    public static $locator
-        = 'tars.tarsregistry.QueryObj@tcp -h 172.16.0.161 -p 17890';
+    /**
+     * @return mixed
+     * 获取当前环境的主控配置
+     */
+    public static function getLocator() {
+        $tarsConfig = App::getTarsConfig();
 
-    public static $logPath = '/usr/local/app/tars/app_log/PHPTest/PHPHttpServer';
+        $tarsClientConfig = $tarsConfig['tars']['application']['client'];
+
+        $locator = $tarsClientConfig['locator'];
+
+        return $locator;
+    }
+
+    /**
+     * @return mixed
+     * 获取日志的路径
+     */
+    public static function getLogPath() {
+        // $logPath = '/usr/local/app/tars/app_log/PHPTest/PHPHttpServer';
+        $tarsConfig = App::getTarsConfig();
+
+        $tarsServerConfig = $tarsConfig['tars']['application']['server'];
+
+        $logPath = $tarsServerConfig['logpath'];
+
+        return $logPath;
+    }
 
     public static $socketMode = 2;
 
     public static function getTarsConf()
     {
-        $table = $_SERVER->table;
-        $result = $table->get('tars:php:tarsConf');
-        $tarsConf = unserialize($result['tarsConfig']);
-
-        return $tarsConf;
+        return App::getTarsConfig();
     }
 }

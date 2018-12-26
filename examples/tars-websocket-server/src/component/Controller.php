@@ -15,6 +15,7 @@ class Controller
 {
     protected $request;
     protected $response;
+    protected $server;
 
     public function __construct(Request $request, Response $response)
     {
@@ -22,6 +23,8 @@ class Controller
 
         $this->request = $request;
         $this->response = $response;
+
+        $this->server = $request->server;
     }
 
     public function getResponse()

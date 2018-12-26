@@ -2,14 +2,23 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Test WebSocket</title>
+    <title>Test WebSocket room2</title>
+    <link rel="stylesheet" href="./style.css">
     <script type="text/javascript">
         //显示信息
-        var log = function(s) {
+        var log = function(s, type = 'tip') {
+            if (s.toString() == '[object Object]' && !type) {
+                s = s.s
+                type = s.type
+            }
             if (document.readyState !== "complete") {
-                log.buffer.push(s);
+                log.buffer.push({s, type});
             } else {
-                document.getElementById("output").textContent += (s + "\n");
+                if (Array.isArray(s)) {
+                    s.forEach(log)
+                    return
+                }
+                document.getElementById("output").innerHTML += (`<p class="${type}">${s}</p><br>`);
                 document.getElementById("outputdiv").scrollTop = document.getElementById("outputdiv").scrollHeight;
             }
         }
@@ -26,7 +35,7 @@
                 log("现已连接");
                 return ;
             }
-            url = "ws://devtarsws.webnovel.com/";
+            url = "ws://wsphp.tars.com/";
             if ('WebSocket' in window) {
                 ws = new WebSocket(url);
             } else if ('MozWebSocket' in window) {
@@ -45,7 +54,8 @@
                 document.getElementById("roomNumKey").innerHTML = "room2";
             }
             ws.onmessage = function(e) {
-                log(e.data.toString());
+                console.log(e)
+                log(e.data.toString(), 'message');
             }
             ws.onclose = function(e) {
                 log("closed");
@@ -75,6 +85,7 @@
             if (ws != null && ws.readyState == WebSocket.OPEN) {
                 var roomNum = document.getElementById("roomNum").value;
                 var message = document.getElementById("message").value;
+                if (!message) return alert('请输入消息')
 
                 var data = {"roomNum":roomNum, "message":message};
 
@@ -86,6 +97,7 @@
         function broadcast() {
             if (ws != null) {
                 var message = document.getElementById("message").value;
+                if (!message) return alert('请输入消息')
                 var data = {"message":message};
 
                 ws.send("broadcast|" + JSON.stringify(data));
@@ -94,7 +106,7 @@
 
         window.onload = function() {
             connect();
-            log(log.buffer.join("\n"));
+            log(log.buffer);
 
             // 需要增加一个心跳,10秒钟一次
             setInterval(function () {
@@ -106,21 +118,25 @@
     </script>
 </head>
 <body onunload="disconnect();">
-<div>连接状态：<span id="socketstatus"></span></div>
-<div>你所在的房间：<span id="roomNumKey"></span></div>
-<div>
-    <input type="text" id="roomNum" value="Please input roomNum">
+<div id="outputdiv">
+    <div id="output"></div>
+</div>
+<div class="bottom">
+    <div class="status">连接状态：<span id="socketstatus"></span></div>
+    <div class="status">你所在的房间：<span id="roomNumKey"></span></div>
+    <div class="row">
+        <input type="text" id="roomNum" placeholder="Please input roomNum">
 
-    <input type="text" id="message" value="Please input data">
+        <input type="text" id="message" placeholder="Please input data">
+    </div>
+    <div class="row">
+        <button id="connect" onclick="connect();">连接</button>
+        <button id="sendByRoom" onclick="sendByRoom();">按房间号码发送</button>
+        <button id="broadcast" onclick="broadcast();">全员广播</button>
+        <button id="disconnect" onclick="disconnect();">断开</button>
+    </div>
 </div>
-<div>
-    <button id="connect" onclick="connect();">连接</button>
-    <button id="sendByRoom" onclick="sendByRoom();">按房间号码发送</button>
-    <button id="broadcast" onclick="broadcast();">全员广播</button>
-    <button id="disconnect" onclick="disconnect();">断开</button>
-</div>
-<div style="height:300px; overflow:auto;" id="outputdiv">
-    <pre id="output"></pre>
-</div>
+
+
 </body>
 </html>

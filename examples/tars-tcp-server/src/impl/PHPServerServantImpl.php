@@ -14,6 +14,7 @@ use Server\servant\PHPTest\PHPServer\obj\classes\LotofTags;
 use Server\servant\PHPTest\PHPServer\obj\classes\SimpleStruct;
 use Server\servant\PHPTest\PHPServer\obj\classes\OutStruct;
 use Server\servant\PHPTest\PHPServer\obj\classes\ComplicatedStruct;
+use Tars\App;
 use Tars\client\CommunicatorConfig;
 use Tars\monitor\PropertyFWrapper;
 use Server\conf\ENVConf;
@@ -22,7 +23,7 @@ class PHPServerServantImpl implements TestTafServiceServant
 {
     public function testTafServer()
     {
-        error_log('testTafServer test', 3, '/data/logs/ted.log');
+        App::getLogger()->info('testTafServer test');
     }
     /**
      * @param struct $tags    \Server\servant\PHPTest\PHPServer\obj\classes\LotofTags
@@ -32,7 +33,7 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testLofofTags(LotofTags $tags, LotofTags &$outtags)
     {
-        error_log('testLofofTags tags:'.var_export($tags, true), 3, '/data/logs/ted.log');
+        App::getLogger()->info('testLofofTags tags:'.var_export($tags, true));
         $outtags->count = 100;
 
         return 999;
@@ -43,7 +44,7 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function sayHelloWorld($name, &$outGreetings)
     {
-        error_log('sayHelloWorld name:'.$name, 3, '/data/logs/ted.log');
+        App::getLogger()->info('sayHelloWorld name:'.$name);
         $outGreetings = 'hello world!';
     }
     /**
@@ -58,9 +59,9 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testBasic($a, $b, $c, &$d, &$e, &$f)
     {
-        error_log('testBasic a:'.$a, 3, '/data/logs/ted.log');
-        error_log('testBasic b:'.$b, 3, '/data/logs/ted.log');
-        error_log('testBasic c:'.$c, 3, '/data/logs/ted.log');
+        App::getLogger()->info('testBasic a:'.$a);
+        App::getLogger()->info('testBasic b:'.$b);
+        App::getLogger()->info('testBasic c:'.$c);
 
         $d = false;
         $e = 111;
@@ -77,8 +78,8 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testStruct($a, SimpleStruct $b, OutStruct &$d)
     {
-        error_log('testStruct a:'.$a, 3, '/data/logs/ted.log');
-        error_log('testStruct b:'.var_export($b, true), 3, '/data/logs/ted.log');
+        App::getLogger()->info('testStruct a:'.$a);
+        App::getLogger()->info('testStruct b:'.var_export($b, true));
 
         $d->id = 10000;
 
@@ -95,9 +96,9 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testMap($a, SimpleStruct $b, $m1, OutStruct &$d, &$m2)
     {
-        error_log('testMap a:'.$a, 3, '/data/logs/ted.log');
-        error_log('testMap b:'.var_export($b, true), 3, '/data/logs/ted.log');
-        error_log('testMap m1:'.var_export($m1, true), 3, '/data/logs/ted.log');
+        App::getLogger()->info('testMap a:'.$a);
+        App::getLogger()->info('testMap b:'.var_export($b, true));
+        App::getLogger()->info('testMap m1:'.var_export($m1, true));
 
         $d->page = 1024;
         $simpleStruct = new SimpleStruct();
@@ -118,9 +119,9 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testVector($a, $v1, $v2, &$v3, &$v4)
     {
-        error_log('testVector a:'.$a, 3, '/data/logs/ted.log');
-        error_log('testVector v1:'.var_export($v1, true), 3, '/data/logs/ted.log');
-        error_log('testVector v2:'.var_export($v2, true), 3, '/data/logs/ted.log');
+        App::getLogger()->info('testVector a:'.$a);
+        App::getLogger()->info('testVector v1:'.var_export($v1, true));
+        App::getLogger()->info('testVector v2:'.var_export($v2, true));
 
         $v3->pushBack(111);
         $v3->pushBack(222);
@@ -138,7 +139,7 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testReturn()
     {
-        error_log('testReturn:', 3, '/data/logs/ted.log');
+        App::getLogger()->info('testReturn:');
 
         $simpleStruct = new SimpleStruct();
         $simpleStruct->id = 888;
@@ -150,7 +151,7 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testReturn2()
     {
-        error_log('testReturn2:', 3, '/data/logs/ted.log');
+        App::getLogger()->info('testReturn2:');
 
         $map = new \TARS_Map(\TARS::STRING, \TARS::STRING);
         $map->pushBack(['test', 'test']);
@@ -167,8 +168,8 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testComplicatedStruct(ComplicatedStruct $cs, $vcs, ComplicatedStruct &$ocs, &$ovcs)
     {
-        error_log('testComplicatedStruct: cs'.var_export($cs, true), 3, '/data/logs/ted.log');
-        error_log('testComplicatedStruct: vcs'.var_export($vcs, true), 3, '/data/logs/ted.log');
+        App::getLogger()->info('testComplicatedStruct: cs'.var_export($cs, true));
+        App::getLogger()->info('testComplicatedStruct: vcs'.var_export($vcs, true));
 
         $ocs = new ComplicatedStruct();
         $ocs->str = 'sss';
@@ -193,7 +194,7 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testComplicatedMap($mcs, &$omcs)
     {
-        error_log('testComplicatedMap: mcs'.var_export($mcs, true), 3, '/data/logs/ted.log');
+        App::getLogger()->info('testComplicatedMap: mcs'.var_export($mcs, true));
 
         $com = new ComplicatedStruct();
         $com->str = 'sss';
@@ -217,7 +218,7 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testEmpty($a, &$b1, &$in2, OutStruct &$d, &$v3, &$v4)
     {
-        error_log('testEmpty a:'.$a, 3, '/data/logs/ted.log');
+        App::getLogger()->info('testEmpty a:'.$a);
 
         return -99;
     }
@@ -226,11 +227,11 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testSelf()
     {
-        error_log('testSelf request:');
+        App::getLogger()->info('testSelf request:');
 
         // 这里请求一个其他的taf
         $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::$locator);
+        $config->setLocator(ENVConf::getLocator());
         $config->setModuleName('PHPTest.PHPServer');
         $config->setSocketMode(2);
 
@@ -238,7 +239,7 @@ class PHPServerServantImpl implements TestTafServiceServant
 
         $value = $cServant->testStr('in', $out);
 
-        error_log('111 and '.$value.' out:'.$out);
+        App::getLogger()->info('111 and '.$value.' out:'.$out);
 
         return 999;
     }
@@ -248,7 +249,7 @@ class PHPServerServantImpl implements TestTafServiceServant
      */
     public function testProperty()
     {
-        $property = new PropertyFWrapper(ENVConf::$locator, 2, 'PHPTest.PHPServer');
+        $property = new PropertyFWrapper(ENVConf::getLocator(), 2, 'PHPTest.PHPServer');
         $property->monitorProperty('127.0.0.1', 'test', 'MAX', 1);
         $property->monitorProperty('127.0.0.1', 'test', 'COUNT', 1);
         $property->monitorProperty('127.0.0.1', 'test', 'MIN', 3);
