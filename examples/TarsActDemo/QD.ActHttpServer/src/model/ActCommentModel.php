@@ -26,7 +26,7 @@ class ActCommentModel extends BaseModel
         $commonIn->appId = 1;
         $commonIn->areaId = 10;
         $commonIn->userIp = '';
-        $commonIn->serverIp = '127.0.01';
+        $commonIn->serverIp = '127.0.0.1';
 
         return $commonIn;
     }
