@@ -15,7 +15,22 @@ user_info.sql是QD.UserServer服务的用户信息表
 
 # 如何部署
 
-1.修改QD.UserService中src/ENVConf.php 中的mysql 配置，设置你们自己的mysql ip、port和db名字
+1.需要在tars平台上创建db配置，在tars平台上，找到QD.UserService 点击服务配置，添加配置，文件名db.json，内容：
+
+~~~json
+[
+  {
+    "host": "mysql.tarsActDemo.local //这是是你的mysql地址",
+    "port": 3306,
+    "username": "root",
+    "password": "password",
+    "db": "tars_test",
+    "charset": "utf-8",
+    "instanceName": "default"
+  }
+]
+~~~
+
 2.导入user_info.sql到你的mysql中。
 3.修改QD.ActCommentServer中src/ENVConf.php 中的redis 配置，设置你们自己的redis ip、port
 4.依次cd 到各个服务的 src 目录，执行 composer install，安装composer 依赖
