@@ -24,5 +24,11 @@ return array(
         'config' => [
             'size' => 40960
         ]
+    ],
+    'registryStoreConf' => [
+        'className' => Tars\registry\RouteTable::class,
+        'config' => [
+            'size' => 200
+        ]
     ]
 );
