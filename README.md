@@ -7,6 +7,8 @@ TARS-PHP是针对php使用tars二进制协议，以及tars平台整体运维、R
 * [http server](https://github.com/TarsPHP/TarsPHP/blob/master/examples/tars-http-server/README.md)
 * [timer server ](https://github.com/TarsPHP/TarsPHP/blob/master/examples/tars-timer-server/README.md)
 
+更多详细文档 参考这里 https://tarsphp.gitbook.io/doc
+
 ## tars-client
 
 tars-client中提供了对tars服务进行调用的php能力，包括：
@@ -20,7 +22,7 @@ tars-client中提供了对tars服务进行调用的php能力，包括：
 ## tars-server
 tars-server提供了底层的server框架,同时支持如下特性
 
-* 基于swoole1.x/2.x的高性能服务
+* 基于swoole1.x/2.x/4.x的高性能服务
 * 支持tup协议和tars流两种协议模式
 * 支持http、tcp、timer三种server
 * 上报、监控、日志的集成
