@@ -18,7 +18,7 @@ module testtafserviceservant
             1 require SimpleStruct rs;
             2 require map<string, SimpleStruct> mss;
             3 optional string str;
-        }
+        };
 
         struct LotofTags {
             0 require long id=0;
@@ -28,7 +28,7 @@ module testtafserviceservant
             4 require vector<SimpleStruct> ss;
             5 require SimpleStruct rs;
             6 require map<string, SimpleStruct> mss;
-        }
+        };
 
         interface TestTafService
         {
@@ -62,4 +62,4 @@ module testtafserviceservant
             int testProperty();
         };
 
-}
+};

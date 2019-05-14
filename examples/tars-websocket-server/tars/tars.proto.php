@@ -8,6 +8,6 @@
 
 return array(
     'appName' => 'PHPTest',
-    'serverName' => 'PHPWebsocketServer',
+    'serverName' => 'WebsocketServer',
     'objName' => 'obj',
 );

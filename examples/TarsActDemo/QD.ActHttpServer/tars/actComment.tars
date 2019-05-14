@@ -25,14 +25,14 @@ module service
         4 optional string title;
         5 optional string ext1;
         6 optional long createTime;
-    }
+    };
 
     struct QueryParam {
         0 optional long activityId;
         1 optional int page;
         2 optional int size;
         3 optional int orderType;
-    }
+    };
 
     interface ActCommentService
     {
@@ -43,4 +43,4 @@ module service
         void getComment(CommonInParam inParam, QueryParam queryParam, out CommonOutParam outParam, out vector<SimpleComment> list);
     };
 
-}
+};

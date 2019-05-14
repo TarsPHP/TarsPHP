@@ -22,7 +22,7 @@ module service
         1 optional string nickname;
         2 optional string avatar;
         4 optional long createTime;
-    }
+    };
 
 
     interface UserService
@@ -36,4 +36,4 @@ module service
         void login(CommonInParam inParam, string nickname, string password, out CommonOutParam outParam, out long userId, out string sessionKey);
     };
 
-}
+};
