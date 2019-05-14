@@ -1,4 +1,5 @@
 .git
 .idea
 vendor
+composer.lock
 *.tar.gz
