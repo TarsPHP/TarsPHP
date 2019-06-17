@@ -28,7 +28,7 @@ class CommentService
             $comment->userId = $inParam->userId;
         }
 
-        $commentArray = Utils::objToArrayForTaf($comment);
+        $commentArray = Utils::objToArrayForTars($comment);
 
         $redis->hMset(self::getCommentContext($id), $commentArray);
 

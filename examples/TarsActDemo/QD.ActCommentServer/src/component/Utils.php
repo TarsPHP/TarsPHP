@@ -11,7 +11,7 @@ namespace Server\component;
 
 class Utils
 {
-    public static function objToArrayForTaf($obj)
+    public static function objToArrayForTars($obj)
     {
         $data = is_array($obj) ? $obj : get_object_vars($obj);
 
@@ -27,7 +27,7 @@ class Utils
             }
 
             if (is_array($value) || is_object($value)) {
-                $data[$key] = self::objToArrayForTaf($value);
+                $data[$key] = self::objToArrayForTars($value);
             }
         }
 
