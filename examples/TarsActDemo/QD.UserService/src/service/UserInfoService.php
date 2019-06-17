@@ -15,7 +15,7 @@ use Server\protocol\QD\UserService\UserObj\classes\User;
 
 class UserInfoService
 {
-    public static function getUserInfoByIds($usersId, &$info)
+    public static function getUserInfoByIds($usersId, &$info, &$outArray = null)
     {
         if (empty($usersId)) {
             return;
@@ -39,6 +39,7 @@ class UserInfoService
                 $tmp->nickname = $usersObjWithIndex[$userId]->nickname;
                 $tmp->avatar = $usersObjWithIndex[$userId]->avatar;
                 $tmp->createTime = strtotime($usersObjWithIndex[$userId]->createTime);
+                $outArray[] = $tmp;
                 $info->pushBack([$userId => $tmp]);
             }
         }

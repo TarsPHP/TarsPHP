@@ -9,9 +9,8 @@
 namespace Server\impl;
 
 
-use MysqliDb;
+use Server\App;
 use Server\conf\Code;
-use Server\conf\ENVConf;
 use Server\exception\BusinessException;
 use Server\protocol\QD\UserService\UserObj\classes\CommonInParam;
 use Server\protocol\QD\UserService\UserObj\classes\CommonOutParam;
@@ -22,11 +21,7 @@ class UserServiceImpl implements UserServiceServant
 {
     public function __construct()
     {
-        $dbsConf = ENVConf::getDbConf();
-        $db = new MysqliDb($dbsConf[0]);
-        foreach ($dbsConf as $config) {
-            $db->addConnection($config['instanceName'], $config);
-        }
+        App::initDb();
     }
 
     /**
