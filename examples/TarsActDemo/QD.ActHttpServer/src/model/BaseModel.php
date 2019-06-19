@@ -18,7 +18,7 @@ class BaseModel
     {
         $config = new CommunicatorConfig();
         $config->setLocator(ENVConf::getTarsConf()['tars']['application']['client']['locator']);
-        $config->setModuleName('PHPTest.PHPHttpServer');
+        $config->setModuleName('QD.ActHttpServer');
         $config->setSocketMode(3);
 
         return $config;
