@@ -2,7 +2,9 @@
 
 ## 服务部署guideline
 
-1. 进入运维管理 => 模板管理
+~~1. 进入运维管理=> 模板管理~~ 
+(这一步不需要做了，0.3版本的tars-server， isTimer 在services.php中指定，请使用 tars.tarsphp.default 模板)
+
 
 平台会提供一份新的针对php的模板,命名为tars.tarsphp.default, !!!!!!!必须首先修改其中php的执行路径!!!!!!!
  
