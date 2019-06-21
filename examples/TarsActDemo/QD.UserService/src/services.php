@@ -31,6 +31,6 @@ return [
         'home-api' => 'Server\protocol\QD\UserService\UserObj\UserServiceServant',
         'home-class' => '\Server\impl\UserServiceImpl',
         'protocolName' => 'tars', //http, json, tars or other
-        'serverType' => 'tcp', //http(no_tars default), webSocket, tcp(tars default), udp
+        'serverType' => 'tcp', //http(no_tars default), websocket, tcp(tars default), udp
     ],
 ];
