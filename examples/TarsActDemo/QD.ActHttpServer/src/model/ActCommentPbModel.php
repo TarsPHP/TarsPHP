@@ -39,16 +39,16 @@ class ActCommentPbModel extends BaseModel
     {
         try {
             $commonIn = self::getCommonIn();
-            $commonIn->userId = $userId;
+            $commonIn->setUserId($userId);
 
             $comment = new SimpleComment();
-            $comment->activityId = $activityId;
-            $comment->title = $title;
-            $comment->content = $content;
+            $comment->setActivityId($activityId);
+            $comment->setTitle($title);
+            $comment->setContent($content);
 
             $inParam = new CreateRequest();
             $inParam->setInParam($commonIn);
-            $inParam->setComment($content);
+            $inParam->setComment($comment);
 
             $outParam = new CreateResponse();
 

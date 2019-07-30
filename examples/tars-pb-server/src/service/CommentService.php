@@ -2,7 +2,6 @@
 
 namespace Server\service;
 use Server\component\BaseTrait;
-use Server\component\Utils;
 use Protocol\QD\ActCommentPbServer\CommonInParam;
 use Protocol\QD\ActCommentPbServer\QueryParam;
 use Protocol\QD\ActCommentPbServer\SimpleComment;
@@ -28,7 +27,15 @@ class CommentService
             $comment->setUserId($inParam->getUserId());
         }
 
-        $commentArray = Utils::objToArrayForTars($comment);
+        $commentArray = [
+            'id' => $comment->getId(),
+            'activityId' => $comment->getActivityId(),
+            'userId' => $comment->getUserId(),
+            'content' => $comment->getContent(),
+            'title' => $comment->getTitle(),
+            'ext1' => $comment->getExt1(),
+            'createTime' => $comment->getCreateTime(),
+        ];
 
         $redis->hMset(self::getCommentContext($id), $commentArray);
 
