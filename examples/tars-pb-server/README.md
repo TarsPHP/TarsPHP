@@ -1,12 +1,17 @@
 # TARS-PB-SERVER的说明
 
+## 依赖
+
+需要swoole版本4.3.4以上，开启openssl 开启http2
+需要安装 protoc c库，需要安装 protobuf php 扩展
+ 参考 https://github.com/protocolbuffers/protobuf/tree/master/php
+（google 官方文档如果看的比较辛苦 可以自己查询其他教程）
+
 ## 目录结构说明
 
 1. scripts
 存储业务所需要的脚本,如proto2php.sh 负责的就是根据proto文件,生成服务端所需要的代码。
 这个脚本会调用pb 的 protoc 脚本把message 生成php 类。
-protoc c库安装，和php 扩展安装 参考 https://github.com/protocolbuffers/protobuf/tree/master/php
-（google 官方文档如果看的比较辛苦 可以自己查询其他教程）
 
 2. src 
 业务逻辑所在的目录,主要包含以下结构:
@@ -86,7 +91,7 @@ namespacePrefix是对应代码的命名空间,这里是`Server\servant`,这个�
 dstPath是用来生成 impl 基础interface 的，生成在 dstPath/APPName/serverName/objName 下
 protocDstPath 用来代用protoc用来把message生成php 类的，生成在 protocDstPath/（package name 点转为/）/ 下
 
-5. 执行scripts下面的proto2php.sh, 会在src/protocol下面生成一个er级文件夹,
+5. 执行scripts下面的proto2php.sh, 会在src/protocol下面生成一个二级文件夹,
 这里就是QD/ActCommentPbServer 
 * tars文件夹 - 存放proto文件
 * CommentObjServant.php - interface文件
@@ -99,8 +104,8 @@ protocDstPath 用来代用protoc用来把message生成php 类的，生成在 pro
 7. 新建composer.json文件,内容如下:
 ```
 {
-    "name" : "tars-tcp-server-demo",
-    "description": "tars tcp server",
+    "name" : "tars-pb-server-demo",
+    "description": "tars pb server",
     "require": {
         "phptars/tars-server": "~0.3",
         "phptars/tars-deploy": "~0.1",

@@ -8,18 +8,13 @@ use \Protocol\QD\ActCommentPbServer\GetResponse;
 
 class TestGrpcClient
 {
-    public static function callGrpc($ip, $requestBuf)
+    public static function callGrpc($ip, $port, $path, $requestBuf)
     {
-        $cli = new Swoole\Coroutine\Http2\Client($ip, 10008, false);
-        $cli->set(
-            [
-                'timeout' => -1,
-            ]
-        );
+        $cli = new Swoole\Coroutine\Http2\Client($ip, $port, false);
         $cli->connect();
         $req = new swoole_http2_request;
         $req->method = 'POST';
-        $req->path = '/protocol.QD.ActCommentServer.CommentObj/getComment';
+        $req->path = $path;
         $req->headers = [
             "user-agent" => 'grpc-c/7.0.0 (linux; chttp2; gale)',
             "content-type" => "application/grpc",
@@ -59,7 +54,8 @@ class TestGrpcClient
         $packBuf = pack('CN', 0, strlen($requestBuf)) . $requestBuf;
 
         go(function () use ($packBuf){
-            $ret = self::callGrpc('127.0.0.1', $packBuf); //这里注意要修改成你服务在tars上绑定的ip 127.0.0.1不一定可以
+            $path = "/protocol.QD.ActCommentServer.CommentObj/getComment";
+            $ret = self::callGrpc('127.0.0.1', 10008, $path, $packBuf); //这里注意要修改成你服务在tars上绑定的ip 127.0.0.1不一定可以
             $response = new GetResponse();
             $response->mergeFromString(substr($ret, 5));
             foreach ($response->getList() as $row) {
