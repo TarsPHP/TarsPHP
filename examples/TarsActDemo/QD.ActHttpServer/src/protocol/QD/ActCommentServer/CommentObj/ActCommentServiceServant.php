@@ -48,6 +48,25 @@ class ActCommentServiceServant {
 		}
 	}
 
+	public function getCount(&$count) {
+		try {
+			$requestPacket = new RequestPacket();
+			$requestPacket->_iVersion = $this->_iVersion;
+			$requestPacket->_funcName = __FUNCTION__;
+			$requestPacket->_servantName = $this->_servantName;
+			$encodeBufs = [];
+
+			$requestPacket->_encodeBufs = $encodeBufs;
+
+			$sBuffer = $this->_communicator->invoke($requestPacket,$this->_iTimeout);
+
+			$count = TUPAPIWrapper::getInt32("count",1,$sBuffer,$this->_iVersion);
+		}
+		catch (\Exception $e) {
+			throw $e;
+		}
+	}
+
 	public function createComment(CommonInParam $inParam,SimpleComment $comment,CommonOutParam &$outParam) {
 		try {
 			$requestPacket = new RequestPacket();

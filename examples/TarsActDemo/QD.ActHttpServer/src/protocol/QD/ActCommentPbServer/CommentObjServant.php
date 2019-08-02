@@ -24,6 +24,46 @@ class CommentObjServant
 		}
 	}
 
+	public function ping(PingRequest $inParam,PingResponse &$outParam)
+	{
+		try {
+			$requestPacket = new GrpcRequestPacket();
+			$requestPacket->_funcName = __FUNCTION__;
+			$requestPacket->_servantName = $this->_servantName;
+			$requestPacket->_basePath = $this->_basePath;
+			$requestPacket->_sBuffer = $inParam->serializeToString();
+
+			$responsePacket = new GrpcResponsePacket();
+			$sBuffer = $this->_communicator->invoke($requestPacket, $this->_iTimeout, $responsePacket);
+
+			$outParam = new PingResponse();
+			$outParam->mergeFromString($sBuffer);
+		}
+		catch (\Exception $e) {
+			throw $e;
+		}
+	}
+
+	public function getCommentCount(CountRequest $inParam,CountResponse &$outParam)
+	{
+		try {
+			$requestPacket = new GrpcRequestPacket();
+			$requestPacket->_funcName = __FUNCTION__;
+			$requestPacket->_servantName = $this->_servantName;
+			$requestPacket->_basePath = $this->_basePath;
+			$requestPacket->_sBuffer = $inParam->serializeToString();
+
+			$responsePacket = new GrpcResponsePacket();
+			$sBuffer = $this->_communicator->invoke($requestPacket, $this->_iTimeout, $responsePacket);
+
+			$outParam = new CountResponse();
+			$outParam->mergeFromString($sBuffer);
+		}
+		catch (\Exception $e) {
+			throw $e;
+		}
+	}
+
 	public function createComment(CreateRequest $inParam,CreateResponse &$outParam)
 	{
 		try {

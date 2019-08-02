@@ -29,6 +29,15 @@ class ActCommentServerImpl implements ActCommentServiceServant
     }
 
     /**
+     * @param int $count =out=
+     * @return void
+     */
+    public function getCount(&$count)
+    {
+        $count = rand(1, 100);
+    }
+
+    /**
      * @param struct $inParam \Server\protocol\QD\ActCommentServer\CommentObj\classes\CommonInParam
      * @param struct $comment \Server\protocol\QD\ActCommentServer\CommentObj\classes\SimpleComment
      * @param struct $outParam \Server\protocol\QD\ActCommentServer\CommentObj\classes\CommonOutParam =out=

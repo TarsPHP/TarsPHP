@@ -10,17 +10,41 @@ namespace Server\impl;
 
 
 use Protocol\QD\ActCommentPbServer\CommonOutParam;
+use Protocol\QD\ActCommentPbServer\CountRequest;
+use Protocol\QD\ActCommentPbServer\CountResponse;
 use Protocol\QD\ActCommentPbServer\CreateRequest;
 use Protocol\QD\ActCommentPbServer\CreateResponse;
 use Protocol\QD\ActCommentPbServer\GetRequest;
 use Protocol\QD\ActCommentPbServer\GetResponse;
 use Protocol\QD\ActCommentPbServer\CommentObjServant;
+use Protocol\QD\ActCommentPbServer\PingRequest;
+use Protocol\QD\ActCommentPbServer\PingResponse;
 use Server\conf\Code;
 use Server\exception\BusinessException;
 use Server\service\CommentService;
 
 class ActCommentServerImpl implements CommentObjServant
 {
+    /**
+     * @param \Protocol\QD\ActCommentPbServer\PingRequest $inParam
+     * @param \Protocol\QD\ActCommentPbServer\PingResponse $outParam =out=
+     * @return void
+     */
+    public function ping(PingRequest $inParam,PingResponse &$outParam)
+    {
+        $outParam = new PingResponse();
+    }
+
+    /**
+     * @param \Protocol\QD\ActCommentPbServer\PingRequest $inParam
+     * @param \Protocol\QD\ActCommentPbServer\CountResponse $outParam =out=
+     * @return void
+     */
+    public function getCommentCount(CountRequest $inParam,CountResponse &$outParam)
+    {
+        $outParam->setCount(rand(1, 100));
+    }
+
     /**
      * @param \Protocol\QD\ActCommentPbServer\CreateRequest $inParam
      * @param \Protocol\QD\ActCommentPbServer\CreateResponse $outParam =out=

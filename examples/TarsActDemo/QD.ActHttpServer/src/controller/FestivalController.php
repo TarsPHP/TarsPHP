@@ -46,4 +46,16 @@ class FestivalController extends BusinessController
 
         $this->sendSuccess($ret);
     }
+
+    public function actionPing()
+    {
+        FestivalService::ping();
+        $this->sendSuccess();
+    }
+
+    public function actionGetCommentCount()
+    {
+        $count = FestivalService::getCount();
+        $this->sendSuccess($count);
+    }
 }

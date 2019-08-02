@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use \Protocol\QD\ActCommentPbServer\GetRequest;
 use \Protocol\QD\ActCommentPbServer\CommonInParam;

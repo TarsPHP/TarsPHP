@@ -37,4 +37,16 @@ class FestivalService extends BaseService
         $ret = ActCommentPbModel::createComment($userId, self::ACTIVITY_ID, '', $message); //use protobuf
         return $ret;
     }
+
+    public static function ping()
+    {
+        //return ActCommentModel::ping();
+        return ActCommentPbModel::ping();
+    }
+
+    public static function getCount()
+    {
+//        return ActCommentModel::getCount();
+        return ActCommentPbModel::getCount();
+    }
 }

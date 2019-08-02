@@ -3,6 +3,10 @@ syntax = "proto3";
 package protocol.QD.ActCommentPbServer;
 
 service CommentObj {
+  rpc ping(PingRequest) returns (PingResponse) {};
+
+  rpc getCommentCount(CountRequest) returns (CountResponse) {};
+
   rpc createComment(CreateRequest) returns (CreateResponse) {};
 
   //这是测试
@@ -58,5 +62,17 @@ message GetRequest {
 message GetResponse {
     CommonOutParam outParam = 1;
     repeated SimpleComment list = 2;
+};
+
+message PingRequest {
+};
+
+message PingResponse {
+};
+
+message CountRequest {
+};
+message CountResponse {
+    int32 count = 1;
 };
 

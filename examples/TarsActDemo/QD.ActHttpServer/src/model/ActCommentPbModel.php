@@ -13,11 +13,15 @@ use HttpServer\conf\Code;
 use HttpServer\exception\ActivityException;
 
 use Protocol\QD\ActCommentPbServer\CommentObjServant;
+use Protocol\QD\ActCommentPbServer\CountRequest;
+use Protocol\QD\ActCommentPbServer\CountResponse;
 use Protocol\QD\ActCommentPbServer\CreateRequest;
 use Protocol\QD\ActCommentPbServer\CreateResponse;
 use Protocol\QD\ActCommentPbServer\CommonInParam;
 use Protocol\QD\ActCommentPbServer\GetRequest;
 use Protocol\QD\ActCommentPbServer\GetResponse;
+use Protocol\QD\ActCommentPbServer\PingRequest;
+use Protocol\QD\ActCommentPbServer\PingResponse;
 use Protocol\QD\ActCommentPbServer\QueryParam;
 use Protocol\QD\ActCommentPbServer\SimpleComment;
 
@@ -123,5 +127,31 @@ class ActCommentPbModel extends BaseModel
             //TODO log
             throw new ActivityException(Code::COMMENT_MODEL_CONNECT_ERROR, $e->getMessage() . $e->getCode());
         }
+    }
+
+    public static function ping()
+    {
+        $inParam = new PingRequest();
+        $outParam = new PingResponse();
+
+        $conf = self::getConfig();
+        $conf->setSocketMode(4);
+
+        $servant = new CommentObjServant($conf);
+        $servant->ping($inParam, $outParam);
+    }
+
+    public static function getCount()
+    {
+        $inParam = new CountRequest();
+        $outParam = new CountResponse();
+
+        $conf = self::getConfig();
+        $conf->setSocketMode(4);
+
+        $servant = new CommentObjServant($conf);
+        $servant->getCommentCount($inParam, $outParam);
+
+        return $outParam->getCount();
     }
 }

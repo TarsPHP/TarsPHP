@@ -12,6 +12,11 @@ interface ActCommentServiceServant {
 	 */
 	public function ping();
 	/**
+	 * @param int $count =out=
+	 * @return void
+	 */
+	public function getCount(&$count);
+	/**
 	 * @param struct $inParam \Server\protocol\QD\ActCommentServer\CommentObj\classes\CommonInParam
 	 * @param struct $comment \Server\protocol\QD\ActCommentServer\CommentObj\classes\SimpleComment
 	 * @param struct $outParam \Server\protocol\QD\ActCommentServer\CommentObj\classes\CommonOutParam =out=
