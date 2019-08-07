@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package protocol.QD.ActCommentPbServer;
+
+service CommentObj {
+  rpc ping(PingRequest) returns (PingResponse) {};
+
+  rpc getCommentCount(CountRequest) returns (CountResponse) {};
+
+  rpc createComment(CreateRequest) returns (CreateResponse) {};
+
+  //这是测试
+  rpc getComment(GetRequest) returns (GetResponse) {};
+}
+
+//输入参数通用结构体
+message CommonInParam {
+    int32 appId = 1;
+    int32 areaId = 2;
+    int64 userId = 3; //用户信息
+    string userIp = 4; //来源名称
+    string serverIp = 5; //调用方服务器ip
+};
+
+//输出参数通用结构体
+message CommonOutParam {
+    int32 code = 1;  //接口返回码
+    string message = 2;  //接口返回提示信息
+};
+
+message SimpleComment {
+    int32 id = 1;
+    int64 activityId = 2;
+    int64 userId = 3;
+    string content = 4;
+    string title = 5;
+    string ext1 = 6;
+    int64 createTime = 7;
+};
+
+message QueryParam {
+    int64 activityId = 1;
+    int32 page = 2;
+    int32 size = 3;
+    int32 orderType = 4;
+};
+
+message CreateRequest {
+    CommonInParam inParam = 1;
+    SimpleComment comment = 2;
+};
+
+message CreateResponse {
+    CommonOutParam outParam = 1;
+};
+
+message GetRequest {
+    CommonInParam inParam = 1;
+    QueryParam queryParam = 2;
+};
+
+message GetResponse {
+    CommonOutParam outParam = 1;
+    repeated SimpleComment list = 2;
+};
+
+message PingRequest {
+};
+
+message PingResponse {
+};
+
+message CountRequest {
+};
+message CountResponse {
+    int32 count = 1;
+};
+

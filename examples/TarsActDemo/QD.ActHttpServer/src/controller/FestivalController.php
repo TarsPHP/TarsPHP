@@ -24,8 +24,8 @@ class FestivalController extends BusinessController
     public function actionGetBullet()
     {
         $this->header('Access-Control-Allow-Origin', '*');
-        $page = self::getGet('page');
-        $size = self::getGet('size');
+        $page = self::getGet('page', 1);
+        $size = self::getGet('size', 10);
 
         $list = FestivalService::getBullet($page, $size);
 
@@ -45,5 +45,17 @@ class FestivalController extends BusinessController
         $ret = FestivalService::createBullet(self::getUserId(), $content);
 
         $this->sendSuccess($ret);
+    }
+
+    public function actionPing()
+    {
+        FestivalService::ping();
+        $this->sendSuccess();
+    }
+
+    public function actionGetCommentCount()
+    {
+        $count = FestivalService::getCount();
+        $this->sendSuccess($count);
     }
 }

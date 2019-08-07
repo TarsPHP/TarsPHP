@@ -92,4 +92,18 @@ class ActCommentModel extends BaseModel
             throw new ActivityException(Code::COMMENT_MODEL_CONNECT_ERROR, $e->getMessage() . $e->getCode());
         }
     }
+
+    public static function ping()
+    {
+        $servant = new ActCommentServiceServant(self::getConfig());
+        $servant->ping();
+    }
+
+
+    public static function getCount()
+    {
+        $servant = new ActCommentServiceServant(self::getConfig());
+        $servant->getCount($count);
+        return $count;
+    }
 }

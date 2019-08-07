@@ -9,6 +9,7 @@
 namespace HttpServer\service;
 
 use HttpServer\model\ActCommentModel;
+use HttpServer\model\ActCommentPbModel;
 use HttpServer\model\UserInfoModel;
 
 class FestivalService extends BaseService
@@ -17,7 +18,8 @@ class FestivalService extends BaseService
 
     public static function getBullet($page, $size)
     {
-        $list = ActCommentModel::getComment(self::ACTIVITY_ID, $page, $size);
+//        $list = ActCommentModel::getComment(self::ACTIVITY_ID, $page, $size); //use tars
+        $list = ActCommentPbModel::getComment(self::ACTIVITY_ID, $page, $size); //use protobuf
 
         $usersId = array_column($list, 'userId');
         $usersInfo = UserInfoModel::getUsersInfoByIds($usersId);
@@ -31,7 +33,20 @@ class FestivalService extends BaseService
 
     public static function createBullet($userId, $message)
     {
-        $ret = ActCommentModel::createComment($userId, self::ACTIVITY_ID, '', $message);
+//        $ret = ActCommentModel::createComment($userId, self::ACTIVITY_ID, '', $message); //use tars
+        $ret = ActCommentPbModel::createComment($userId, self::ACTIVITY_ID, '', $message); //use protobuf
         return $ret;
+    }
+
+    public static function ping()
+    {
+        //return ActCommentModel::ping();
+        return ActCommentPbModel::ping();
+    }
+
+    public static function getCount()
+    {
+//        return ActCommentModel::getCount();
+        return ActCommentPbModel::getCount();
     }
 }

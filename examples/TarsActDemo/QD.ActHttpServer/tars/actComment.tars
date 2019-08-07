@@ -38,6 +38,8 @@ module service
     {
         int ping();
 
+        void getCount(out int count);
+
         void createComment(CommonInParam inParam, SimpleComment comment, out CommonOutParam outParam);
 
         void getComment(CommonInParam inParam, QueryParam queryParam, out CommonOutParam outParam, out vector<SimpleComment> list);
