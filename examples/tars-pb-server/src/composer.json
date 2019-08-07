@@ -2,10 +2,10 @@
     "name" : "tars-tcp-server-demo",
     "description": "tars tcp server",
     "require": {
-        "phptars/tars-server": "0.4.0-alpha2",
+        "phptars/tars-server": "~0.4",
         "phptars/tars-deploy": "~0.1",
         "phptars/tars-log": "~0.1",
-        "phptars/tars2php": "0.2.0-alpha",
+        "phptars/tars2php": "~0.3",
         "ext-zip" : ">=0.0.1",
         "google/protobuf": "^3.8"
     },
@@ -17,15 +17,6 @@
             "Helloworld\\" : "./Helloworld"
         }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://mirrors.aliyun.com/composer/"
-        },
-        {
-            "packagist": false
-        }
-    ],
     "minimum-stability": "stable",
     "scripts" : {
         "deploy" : "\\Tars\\deploy\\Deploy::run"
