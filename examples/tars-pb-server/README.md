@@ -87,9 +87,12 @@ APPName、serverName、objName 需要与tars平台上面申请的完全一致。
 dstPath一般是`../src/?`,这里为`../src/servant`,这样生成的代码就会到这个文件夹。
 namespacePrefix是对应代码的命名空间,这里是`Server\servant`,这个与composer.json中的psr-4的名称也是相互对应的。
 
-注意 dstPath 和 protocDstPath 的不同： 
+**注意 dstPath 和 protocDstPath 的不同**： 
 dstPath是用来生成 impl 基础interface 的，生成在 dstPath/APPName/serverName/objName 下
 protocDstPath 用来代用protoc用来把message生成php 类的，生成在 protocDstPath/（package name 点转为/）/ 下
+
+可以通过调整dstPath和protoDstPath 让两者生成在同一个目录 。
+生成前 需要先创建好 dstPath 和 protocDstPath 目录
 
 5. 执行scripts下面的proto2php.sh, 会在src/protocol下面生成一个二级文件夹,
 这里就是QD/ActCommentPbServer 
