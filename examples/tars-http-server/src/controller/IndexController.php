@@ -15,6 +15,7 @@ use HttpServer\servant\PHPTest\PHPServer\obj\classes\LotofTags;
 use HttpServer\servant\PHPTest\PHPServer\obj\classes\OutStruct;
 use HttpServer\servant\PHPTest\PHPServer\obj\classes\SimpleStruct;
 use HttpServer\servant\PHPTest\PHPServer\obj\TestTafServiceServant;
+use HttpServer\servant\TestApp\HelloServer\HelloObj\HelloServant;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Tars\App;
@@ -349,5 +350,24 @@ class IndexController extends Controller
         $logger->critical("add a critical message", $array);
         $logger->emergency("add a emergency message", $array);
         $this->sendRaw(json_encode(['code' => 0], JSON_UNESCAPED_UNICODE));
+    }
+
+    /**
+     * 要测试这个方法需要部署java的example服务，需要和java通讯，服务是 TestApp.HelloServer.HelloObj
+     * @throws \Exception
+     */
+    public function actionTestJava()
+    {
+        $config = new \Tars\client\CommunicatorConfig();
+        $config->setLocator(ENVConf::getLocator());
+        $config->setModuleName('TestApp.HelloServer');
+        $config->setCharsetName('UTF-8');
+        $config->setSocketMode(ENVConf::$socketMode);
+
+        $servant = new HelloServant($config);
+
+        $str = $servant->hello(1, 'test');
+
+        $this->sendRaw(json_encode($str, JSON_UNESCAPED_UNICODE));
     }
 }
