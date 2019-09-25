@@ -178,10 +178,14 @@ $class->run();
  */
 
 // 以namespace的方式,在psr4的框架下对代码进行加载
-return array(
-    'home-api' => '\Server\servant\PHPTest\PHPServer\obj\TestTafServiceServant',
-    'home-class' => '\Server\impl\PHPServerServantImpl'
-);
+return [
+    'obj' => [
+        'home-api' => '\Server\servant\PHPTest\PHPServer\obj\TestTafServiceServant',
+        'home-class' => '\Server\impl\PHPServerServantImpl',
+        'protocolName' => 'tars', //http, json, tars or other
+        'serverType' => 'tcp', //http(no_tars default), websocket, tcp(tars default), udp
+    ],
+];
 ```
 home-api指的是interface文件对应的namespace名称和类名
 home-class指的是实现文件对应的namespace名称和类名
