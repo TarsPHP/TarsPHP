@@ -1,0 +1,48 @@
+module QD
+{
+    //servant:QD.ActCommentGoService.CommentObj;
+
+    //输入参数通用结构体
+    struct CommonInParam {
+        0 optional int appId;
+        1 optional int areaId;
+        2 optional long userId; //用户信息
+        3 optional string userIp; //来源名称
+        4 optional string serverIp; //调用方服务器ip
+    };
+
+    //输出参数通用结构体
+    struct CommonOutParam {
+        0 require int code;  //接口返回码
+        1 require string message;  //接口返回提示信息
+    };
+
+    struct SimpleComment {
+        0 optional int id;
+        1 optional long activityId;
+        2 optional long userId;
+        3 optional string content;
+        4 optional string title;
+        5 optional string ext1;
+        6 optional long createTime;
+    };
+
+    struct QueryParam {
+        0 optional long activityId;
+        1 optional int page;
+        2 optional int size;
+        3 optional int orderType;
+    };
+
+    interface CommentObj
+    {
+        int ping();
+
+        void getCount(out int count);
+
+        void createComment(CommonInParam inParam, SimpleComment comment, out CommonOutParam outParam);
+
+        void getComment(CommonInParam inParam, QueryParam queryParam, out CommonOutParam outParam, out vector<SimpleComment> list);
+    };
+
+};
