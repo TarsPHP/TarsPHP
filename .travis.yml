@@ -1,0 +1,31 @@
+language: php 
+
+compiler:
+  - gcc
+  - clang
+
+os:
+  - linux
+
+php:
+  - 7.1
+
+notifications:
+  email: bob_zy@yeah.net
+
+install:
+  - cd examples/TarsActDemo/QD.UserService/src 
+  - composer install && composer run deploy
+  - php ../../../../travis/deploy.php $serverIp $serverName $serverPassword QD.UserService `ls  | grep .gz` 28
+  - cd ../../../../
+  - cd examples/TarsActDemo/QD.ActHttpServer/src 
+  - composer install && composer run deploy
+  - php ../../../../travis/deploy.php $serverIp $serverName $serverPassword QD.ActHttpServer `ls  | grep .gz` 29
+  - cd ../../../../
+  - cd examples/TarsActDemo/QD.ActCommentServer/src 
+  - composer install && composer run deploy
+  - php ../../../../travis/deploy.php $serverIp $serverName $serverPassword QD.ActCommentServer `ls  | grep .gz` 30
+  - cd ../../../../
+
+script:
+  - echo 'no script'
