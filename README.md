@@ -2,93 +2,101 @@
 
 [![Build Status](https://travis-ci.org/TarsPHP/TarsPHP.svg?branch=master)](https://travis-ci.org/TarsPHP/TarsPHP)
 
-TARS-PHP是针对php使用tars二进制协议，以及tars平台整体运维、RPC等一系列能力的解决方案。它主要由如下的几个部分组成：
+Tars PHP is a solution for PHP to use the tars binary protocol, as well as the overall operation and maintenance of the tars platform, RPC and a series of capabilities. It mainly consists of the following parts:
 
-如果你想要快速的体验tars-server,请进入examples目录,里面有详尽的三种服务的部署guideline和开发guideline
+If you want to experience tar server quickly, please enter the examples directory, which contains detailed deployment guidelines and development guidelines for three services
 * [tcp server](https://github.com/TarsPHP/TarsPHP/blob/master/examples/tars-tcp-server/README.md)
 * [http server](https://github.com/TarsPHP/TarsPHP/blob/master/examples/tars-http-server/README.md)
 * [timer server ](https://github.com/TarsPHP/TarsPHP/blob/master/examples/tars-timer-server/README.md)
 
-更多详细文档 参考这里 https://tarsphp.gitbook.io/doc
+Refer to here for more detailed documents https://tarsphp.gitbook.io/doc
 
 ## tars-client
 
-tars-client中提供了对tars服务进行调用的php能力，包括：
+The PHP ability to call the tar service is provided in the tar client, including:
 
-* 调用远程服务的实例；
-* 主调上报
-* 自动寻址模块
 
-[详细说明](https://github.com/TarsPHP/tars-client/blob/master/README.md)
+
+*Call the instance of the remote service;
+
+*Main dispatching Report
+
+*Automatic addressing module
+
+[Detailed description](https://github.com/TarsPHP/tars-client/blob/master/README.md)
 
 ## tars-server
-tars-server提供了底层的server框架,同时支持如下特性
+Tar server provides the underlying server framework and supports the following features
 
-* 基于swoole1.x/2.x/4.x的高性能服务
-* 支持tup协议和tars流两种协议模式
-* 支持http、tcp、timer三种server
-* 上报、监控、日志的集成
-* tars平台发布支持
 
-[详细说明](https://github.com/TarsPHP/tars-server/blob/master/README.md)
+
+*High performance service based on swoole1. X / 2. X / 4. X
+
+*Support two protocol modes: tup protocol and tar stream
+
+*Support three kinds of servers: http, TCP and timer
+
+*Reporting, monitoring and log integration
+
+*Tar platform release support
+[Details Description](https://github.com/TarsPHP/tars-server/blob/master/README.md)
 
 ## tars-config 
 
-从tars平台的配置服务拉取配置文件的能力模块。
+The ability module to pull configuration files from the configuration service of the tar platform.
 
-[详细说明](https://github.com/TarsPHP/tars-config/blob/master/README.md)
+[Details Description](https://github.com/TarsPHP/tars-config/blob/master/README.md)
 
 ## tars-deploy 
 
-进行tars-server业务代码打包的模块。
+The module that packs the business code of tar server.
 
-[详细说明](https://github.com/TarsPHP/tars-deploy/blob/master/README.md)
+[Detailed description](https://github.com/TarsPHP/tars-deploy/blob/master/README.md)
 
 ## tars-extension
 
-tars底层依赖的php扩展代码
-[详细说明](https://github.com/TarsPHP/tars-extension/blob/master/README.md)
+The PHP extension code that tar relies on
+[Detailed description](https://github.com/TarsPHP/tars-extension/blob/master/README.md)
  
 ## tars-log
 
-tars进行远程日志写入的模块
-[详细说明](https://github.com/TarsPHP/tars-log/blob/master/README.md)
+Tars Modules of remote log
+[Detailed description](https://github.com/TarsPHP/tars-log/blob/master/README.md)
  
 ## tars-monitor
 
-tars进行主调上报和特性上报的功能模块
-[详细说明](https://github.com/TarsPHP/tars-monitor/blob/master/README.md)
+tarsFunction modules for main dispatching report and feature report
+[Detailed description](https://github.com/TarsPHP/tars-monitor/blob/master/README.md)
  
 ## tars-registry
  
-tars进行主控寻址的功能模块
-[详细说明](https://github.com/TarsPHP/tars-registry/blob/master/README.md)
+The function module of tars for master addressing
+[Detailed description](https://github.com/TarsPHP/tars-registry/blob/master/README.md)
  
 ## tars-report
  
-tars进行keep-alive服务保活上报的模块
-[详细说明](https://github.com/TarsPHP/tars-report/blob/master/README.md)
+tars Module of keeping alive Report
+[Detailed description](https://github.com/TarsPHP/tars-report/blob/master/README.md)
 
 ## tars-utils
  
-tars进行配置文件解析的模块
-[详细说明](https://github.com/TarsPHP/tars-utils/blob/master/README.md)
+tars Module for profile resolution
+[Detailed description](https://github.com/TarsPHP/tars-utils/blob/master/README.md)
 
 ## examples
-
-三个实际的tcp、http、timer的server实例和说明:
+Three actual server instances and descriptions of TCP, HTTP and timer:
 * [tcp-server](https://github.com/TarsPHP/TarsPHP/tree/master/examples/tars-tcp-server)
 * [http-server](https://github.com/TarsPHP/TarsPHP/tree/master/examples/tars-http-server)
 * [timer-server](https://github.com/TarsPHP/TarsPHP/tree/master/examples/tars-timer-server) 
 
 ## tars2php 
 
-代码自动生成的工具,可以自动生成server和client端的代码。
-[详细说明](https://github.com/TarsPHP/tars2php/blob/master/README.md)
+The tool of automatic code generation can automatically generate server and client code.
+[Detailed description](https://github.com/TarsPHP/tars2php/blob/master/README.md)
  
-## tars平台针对php修改说明
+## tars Platform modification instructions for PHP
 
-与默认模板tars.default相比，php新增了tars.tarsphp.default, 主要添加了如下部分:
+Compared with the default template tar.default, PHP adds tar.tarsphp.default, mainly including the following parts:
 
 ```
     <tars>
@@ -110,10 +118,12 @@ tars进行配置文件解析的模块
         ...
     </tars>
 ```
-* 支持自定义php执行文件（/tars/application/server< php >），默认/usr/bin/php。
-* 支持自定义tars_php框架启动文件配置（/tars/application/server< entrance >），默认项目目录下的src/index.php。
-* tars平台生成的启动脚本会以entrance为入口文件来执行启停脚本。
+*Support custom PHP execution file (/ tar / application / server < PHP >), default / usr / bin / PHP.
 
-在tars-server模块中,三个不同的http、timer、tcp server都需要使用不同的模块,请务必进行新的模板的添加和修改工作!!
+*Support the configuration of the startup file of the custom tar s_php framework (/ tar s / application / server < entry >), and the Src / index.php under the default project directory.
+
+*The startup script generated by the tar platform will execute the startup and shutdown script with entrance as the entry file.
+
+In the tar server module, three different HTTP, timer and TCP servers need to use different modules. Please be sure to add and modify new templates!!
 
     
