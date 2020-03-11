@@ -57,8 +57,6 @@ module testtafserviceservant
 
         int testEmpty(short a,out bool b1, out int in2, out OutStruct d, out vector<OutStruct> v3,out vector<int> v4);
 
-        int testSelf();
-
         int testProperty();
 
     };

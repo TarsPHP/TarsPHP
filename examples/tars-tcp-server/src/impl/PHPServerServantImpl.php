@@ -8,7 +8,6 @@
 
 namespace Server\impl;
 
-use Server\cservant\Test\TarsStressServer\StressObj\StressServant;
 use Server\servant\PHPTest\PHPServer\obj\TestTafServiceServant;
 use Server\servant\PHPTest\PHPServer\obj\classes\LotofTags;
 use Server\servant\PHPTest\PHPServer\obj\classes\SimpleStruct;
@@ -221,27 +220,6 @@ class PHPServerServantImpl implements TestTafServiceServant
         App::getLogger()->info('testEmpty a:'.$a);
 
         return -99;
-    }
-    /**
-     * @return int
-     */
-    public function testSelf()
-    {
-        App::getLogger()->info('testSelf request:');
-
-        // 这里请求一个其他的taf
-        $config = new CommunicatorConfig();
-        $config->setLocator(ENVConf::getLocator());
-        $config->setModuleName('PHPTest.PHPServer');
-        $config->setSocketMode(2);
-
-        $cServant = new StressServant($config);
-
-        $value = $cServant->testStr('in', $out);
-
-        App::getLogger()->info('111 and '.$value.' out:'.$out);
-
-        return 999;
     }
 
     /**

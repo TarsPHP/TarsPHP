@@ -15,5 +15,11 @@
     "minimum-stability": "stable",
     "scripts" : {
         "deploy" : "\\Tars\\deploy\\Deploy::run"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
     }
 }
