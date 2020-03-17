@@ -35,7 +35,7 @@
                 log("现已连接");
                 return ;
             }
-            url = "ws://wsphp.tars.com/";
+            url = "ws://node_ip:port/";
             if ('WebSocket' in window) {
                 ws = new WebSocket(url);
             } else if ('MozWebSocket' in window) {

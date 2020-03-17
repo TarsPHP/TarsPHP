@@ -22,7 +22,9 @@ class TenSecondsTimer
         error_log('Timer execute with timer:'.time());
 
         $config = new \Tars\client\CommunicatorConfig();
-        $config->setLocator('tars.tarsregistry.QueryObj@tcp -h 172.16.0.161 -p 17890');
+        $tarsConfig = \Tars\App::getTarsConfig();
+        $tarsClientConfig = $tarsConfig['tars']['application']['client'];
+        $config->setLocator($tarsClientConfig['locator']);
         $config->setModuleName('PHPTest.PHPHttpServer');
         $config->setSocketMode(2);
 

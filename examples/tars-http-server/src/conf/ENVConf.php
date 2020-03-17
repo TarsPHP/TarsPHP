@@ -36,7 +36,7 @@ class ENVConf
 
         $tarsServerConfig = $tarsConfig['tars']['application']['server'];
 
-        $logPath = $tarsServerConfig['logpath'];
+        $logPath = $tarsServerConfig['logpath'] . DIRECTORY_SEPARATOR . $tarsServerConfig['app'] . DIRECTORY_SEPARATOR . $tarsServerConfig['server'] . DIRECTORY_SEPARATOR;
 
         return $logPath;
     }
