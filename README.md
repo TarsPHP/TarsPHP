@@ -1,7 +1,5 @@
 # TARS-PHP 
 
-[![Build Status](https://travis-ci.org/TarsPHP/TarsPHP.svg?branch=master)](https://travis-ci.org/TarsPHP/TarsPHP)
-
 Tars PHP is a solution for PHP to use the tars binary protocol, as well as the overall operation and maintenance of the tars platform, RPC and a series of capabilities. It mainly consists of the following parts:
 
 If you want to experience tar server quickly, please enter the examples directory, which contains detailed deployment guidelines and development guidelines for three services
