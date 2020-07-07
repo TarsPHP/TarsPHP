@@ -37,7 +37,7 @@ class ENVConf
         //在tar平台上，找到QD.UserService 点击服务配置，添加配置，文件名db.json，内容：
         //[
         //  {
-        //    "host": "mysql.tarsActDemo.local", //这是是你的mysql地址
+        //    "host": "mysql.tarsActDemo.local", //这是是你的mysql地址, json不能有注释，这个要去掉
         //    "port": 3306,
         //    "username": "root",
         //    "password": "password",

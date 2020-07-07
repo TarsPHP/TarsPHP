@@ -23,6 +23,7 @@ class App
 
         $dbsConf = ENVConf::getDbConf();
         if (empty($dbsConf)) {
+            var_dump('db conf is empty, check ENVConf.php, set db.json on tars web site');
             return false;
         }
 

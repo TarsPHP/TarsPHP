@@ -2,7 +2,7 @@
     "name" : "tars-tcp-server-demo",
     "description": "tars tcp server",
     "require": {
-        "phptars/tars-server": "~0.3",
+        "phptars/tars-server": "~0.6",
         "phptars/tars-deploy": "~0.1",
         "phptars/tars-log": "~0.1",
         "phptars/tars2php": "~0.1",
