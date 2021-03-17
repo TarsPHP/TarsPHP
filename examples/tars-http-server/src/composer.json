@@ -1,12 +1,15 @@
 {
-  "name": "tars-http-server-demo",
+  "name": "tarsphp/tars-http-demo",
   "description": "tars http server",
   "require": {
-    "phptars/tars-server": "~0.3",
+    "phptars/tars-server": "~0.7.0",
     "phptars/tars-deploy": "~0.1",
     "phptars/tars2php": "~0.1",
-    "phptars/tars-log": "~0.1",
-    "ext-zip": ">=0.0.1"
+    "phptars/tars-log": "~0.1.6",
+    "ext-zip": ">=0.0.1",
+    "monolog/monolog": "^1.23",
+    "illuminate/routing": "~5.5.0",
+    "illuminate/events": "~5.5.0"
   },
   "autoload": {
     "psr-4": {

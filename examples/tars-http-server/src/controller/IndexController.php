@@ -10,6 +10,7 @@ namespace HttpServer\controller;
 
 use HttpServer\component\Controller;
 use HttpServer\conf\ENVConf;
+use HttpServer\handler\TarsHandler;
 use HttpServer\servant\PHPTest\PHPServer\obj\classes\ComplicatedStruct;
 use HttpServer\servant\PHPTest\PHPServer\obj\classes\LotofTags;
 use HttpServer\servant\PHPTest\PHPServer\obj\classes\OutStruct;
@@ -20,7 +21,6 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Tars\App;
 use Tars\client\CommunicatorConfig;
-use Tars\log\handler\TarsHandler;
 
 class IndexController extends Controller
 {
@@ -316,7 +316,7 @@ class IndexController extends Controller
         $config->setCharsetName('UTF-8');
 
         $logger = new Logger("tars_logger");
-        $tarsHandler = new TarsHandler($config);
+        $tarsHandler = new \HttpServer\handler\TarsHandler($config);
         //local log
         $streamHandler = new StreamHandler(ENVConf::getLogPath() . "/" . __CLASS__  . ".log");
 
