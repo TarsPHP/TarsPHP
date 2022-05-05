@@ -1,5 +1,5 @@
 {
-    "name" : "tars-websocket-server-demo",
+    "name" : "tarsphp/tars-websocket-server-demo",
     "description": "tars websocket server",
     "require": {
         "phptars/tars-server": "~0.3.1",

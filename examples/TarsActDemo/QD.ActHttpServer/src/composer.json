@@ -1,5 +1,5 @@
 {
-    "name" : "tars-http-server-demo",
+    "name" : "tars-http-server/tars-http-server-demo",
     "description": "tars http server",
     "require": {
         "phptars/tars-server": "~0.3",

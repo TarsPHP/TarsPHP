@@ -1,5 +1,5 @@
 {
-    "name" : "tars-timer-server-demo",
+    "name" : "tarsphp/tars-timer-server-demo",
     "description": "tars timer server",
     "require": {
         "phptars/tars-server": "~0.3",

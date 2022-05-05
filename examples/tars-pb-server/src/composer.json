@@ -1,5 +1,5 @@
 {
-    "name" : "tars-tcp-server-demo",
+    "name" : "tarsphp/tars-tcp-server-demo",
     "description": "tars tcp server",
     "require": {
         "phptars/tars-server": "~0.4",
