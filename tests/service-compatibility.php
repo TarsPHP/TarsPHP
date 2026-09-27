@@ -80,11 +80,18 @@ if (is_dir($source . '/Helloworld')) {
 
     // Use a loopback test Redis with a unique key prefix; never read ENVConf or flush a database.
     $redis = new Redis();
-    $redis->connect('127.0.0.1', (int)(getenv('TEST_REDIS_PORT') ?: 6379), 2);
+    check($redis->connect('127.0.0.1', (int)(getenv('TEST_REDIS_PORT') ?: 6379), 2), 'Test Redis connection');
     $redis->setOption(Redis::OPT_PREFIX, 'tars-compat-' . bin2hex(random_bytes(8)) . ':');
     $property = new ReflectionProperty(Server\service\CommentService::class, 'redisInstance');
     $property->setAccessible(true);
-    $property->setValue(null, ['default' => $redis]);
+    // Prevent BaseTrait's reconnect branch from reading application ENVConf on test connection loss.
+    $storage = new class($redis) {
+        private $redis;
+        public function __construct($redis) { $this->redis = $redis; }
+        public function ping() { return true; }
+        public function __call($method, $arguments) { return $this->redis->$method(...$arguments); }
+    };
+    $property->setValue(null, ['default' => $storage]);
     try {
         $query = new Protocol\QD\ActCommentPbServer\QueryParam(['activityId' => 42, 'page' => 1, 'size' => 10]);
         $get = new Protocol\QD\ActCommentPbServer\GetRequest(['queryParam' => $query]);
@@ -103,7 +110,14 @@ if (is_dir($source . '/Helloworld')) {
         $stored = $result->getList()[0];
         check($stored->getId() === 1 && $stored->getUserId() === 7, 'Comment ID and default user');
         check($stored->getContent() === $comment->getContent() && $stored->getCreateTime() > 0, 'Stored comment fields');
+        // A storage exception must become a protobuf business error, not a PHP fatal error.
+        $property->setValue(null, ['default' => new class {
+            public function ping() { return true; }
+            public function lRange($key, $start, $end) { throw new RuntimeException('Test storage failure'); }
+        }]);
+        check(rpc('getComment', $get)->getOutParam()->getCode() !== 0, 'Comment storage error response');
     } finally {
+        $property->setValue(null, null);
         $redis->del('comment_id', 'comment_c_1', 'index_act_id_42');
         $redis->close();
     }

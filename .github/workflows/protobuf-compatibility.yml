@@ -51,7 +51,7 @@ jobs:
           IMPLEMENTATION: ${{ matrix.implementation }}
         run: |
           php -r 'if (getenv("IMPLEMENTATION") === "pecl") { if (phpversion("protobuf") !== "4.33.6") exit(1); } elseif (extension_loaded("protobuf")) { exit(1); }'
-      - name: Resolve, audit, and test example messages
+      - name: Resolve, audit, test, and package examples locally
         run: |
           for example in examples/tars-pb-server examples/TarsActDemo/QD.ActHttpServer examples/TarsActDemo/QD.ActCommentPbServer; do
             composer validate --no-check-publish --working-dir="$example/src"
@@ -59,4 +59,5 @@ jobs:
             composer check-platform-reqs --working-dir="$example/src"
             composer audit --working-dir="$example/src"
             php tests/service-compatibility.php "$example/src"
+            composer run deploy --working-dir="$example/src"
           done

@@ -72,12 +72,13 @@ class ActCommentServerImpl implements CommentObjServant
     {
         $commonOut = new CommonOutParam();
         try {
+            $list = [];
             CommentService::getComment($inParam->getQueryParam(), $list);
             self::setCommonOutSuccess($commonOut);
             $outParam->setOutParam($commonOut);
             $outParam->setList($list);
         } catch (\Exception $e) {
-            self::setCommonOutByException($outParam, $e);
+            self::setCommonOutByException($commonOut, $e);
             $outParam->setOutParam($commonOut);
         }
     }
