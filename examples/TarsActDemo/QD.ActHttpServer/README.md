@@ -1,5 +1,9 @@
 # TARS-HTTP-SERVER的说明
 
+## 依赖
+
+需要 PHP 8.1 或以上版本，以及 `google/protobuf:^4.33.6`，以修复 [CVE-2026-6409](https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-p2gh-cfq4-4wjc)。PHP 7.x 无法安装该安全版本。若启用 PECL `protobuf` 扩展，也必须单独升级到 4.33.6 或更新的安全版本；Composer 不会升级已安装的 PHP 扩展。部署前还需验证 Swoole、phptars 扩展和 Tars 服务组件与 PHP 8.1 的兼容性。
+
 ## 目录结构说明
 
 1. scripts
@@ -83,9 +87,10 @@
 3. 新建composer.json文件,内容如下:
    ```
    {
-       "name" : "tars-http-server-demo",
+       "name" : "phptars/act-http-server-demo",
        "description": "tars http server",
        "require": {
+           "php": ">=8.1",
            "phptars/tars-server": "~0.1.0",
            "phptars/tars-deploy": "~0.1.0",
            "phptars/tars2php": "~0.1.0",

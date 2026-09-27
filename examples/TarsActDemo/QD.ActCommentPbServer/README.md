@@ -2,6 +2,8 @@
 
 ## 依赖
 
+需要 PHP 8.1 或以上版本，以及 `google/protobuf:^4.33.6`，以修复 [CVE-2026-6409](https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-p2gh-cfq4-4wjc)。PHP 7.x 无法安装该安全版本。若启用 PECL `protobuf` 扩展，也必须单独升级到 4.33.6 或更新的安全版本；Composer 不会升级已安装的 PHP 扩展。部署前还需验证 Swoole、phptars 扩展和 Tars 服务组件与 PHP 8.1 的兼容性。
+
 需要swoole版本4.3.4以上，开启openssl 开启http2
 需要安装 protoc c库，需要安装 protobuf php 扩展
  参考 https://github.com/protocolbuffers/protobuf/tree/master/php
@@ -104,15 +106,16 @@ protocDstPath 用来代用protoc用来把message生成php 类的，生成在 pro
 7. 新建composer.json文件,内容如下:
 ```
 {
-    "name" : "tars-pb-server-demo",
+    "name" : "phptars/act-comment-pb-server-demo",
     "description": "tars pb server",
     "require": {
+        "php": ">=8.1",
         "phptars/tars-server": "~0.3",
         "phptars/tars-deploy": "~0.1",
         "phptars/tars-log": "~0.1",
         "phptars/tars2php": "~0.1",
         "ext-zip" : ">=0.0.1",
-        "google/protobuf": "^3.8"
+        "google/protobuf": "^4.33.6"
     },
     "autoload": {
         "psr-4": {

@@ -1,13 +1,14 @@
 {
-    "name" : "tars-tcp-server-demo",
+    "name" : "phptars/tars-pb-server-demo",
     "description": "tars tcp server",
     "require": {
+        "php": ">=8.1",
         "phptars/tars-server": "~0.4",
         "phptars/tars-deploy": "~0.1",
         "phptars/tars-log": "~0.1",
         "phptars/tars2php": "~0.3",
         "ext-zip" : ">=0.0.1",
-        "google/protobuf": "^3.8"
+        "google/protobuf": "^4.33.6"
     },
     "autoload": {
         "psr-4": {
