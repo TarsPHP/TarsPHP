@@ -1,0 +1,63 @@
+name: Protobuf and service compatibility
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  protobuf:
+    runs-on: ubuntu-22.04
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - implementation: pure-php
+            extensions: zip, redis, swoole-4.8.13, :protobuf
+          - implementation: pecl
+            extensions: zip, redis, swoole-4.8.13, protobuf-4.33.6
+    name: PHP 8.1 / ${{ matrix.implementation }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: TarsPHP/tars-extension
+          ref: 42f11b8bb8879cb138c744c6d97f3b91246033c4 # PHP 8.1 compatibility, tars-extension#21
+          path: .ci/tars-extension
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.1'
+          extensions: ${{ matrix.extensions }}
+          coverage: none
+          tools: composer:v2
+      - name: Build PHP 8.1 compatible phptars
+        working-directory: .ci/tars-extension
+        run: |
+          phpize
+          ./configure
+          make -j2
+          sudo make install
+          echo 'extension=phptars.so' | sudo tee "$(php --ini | sed -n 's|Scan for additional .ini files in: *||p')/99-phptars.ini"
+      - name: Check protobuf implementation
+        env:
+          IMPLEMENTATION: ${{ matrix.implementation }}
+        run: |
+          php -r 'if (getenv("IMPLEMENTATION") === "pecl") { if (phpversion("protobuf") !== "4.33.6") exit(1); } elseif (extension_loaded("protobuf")) { exit(1); }'
+      - name: Resolve, audit, test, and package examples locally
+        run: |
+          for example in examples/tars-pb-server examples/TarsActDemo/QD.ActHttpServer examples/TarsActDemo/QD.ActCommentPbServer; do
+            composer validate --no-check-publish --working-dir="$example/src"
+            composer install --no-plugins --no-scripts --no-interaction --prefer-dist --working-dir="$example/src"
+            composer check-platform-reqs --working-dir="$example/src"
+            composer audit --working-dir="$example/src"
+            php tests/service-compatibility.php "$example/src"
+            composer run deploy --working-dir="$example/src"
+          done

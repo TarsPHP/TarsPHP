@@ -77,17 +77,17 @@ class CommentService
     }
 
 
-    protected function getCommentIdKey()
+    protected static function getCommentIdKey()
     {
         return 'comment_id';
     }
 
-    protected function getCommentContext($id)
+    protected static function getCommentContext($id)
     {
         return 'comment_c_' . $id;
     }
 
-    protected function getIndexKey($activityId)
+    protected static function getIndexKey($activityId)
     {
         return 'index_act_id_' . $activityId;
     }

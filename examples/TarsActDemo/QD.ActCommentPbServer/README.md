@@ -2,7 +2,13 @@
 
 ## 依赖
 
-需要swoole版本4.3.4以上，开启openssl 开启http2
+需要 PHP 8.1 或以上版本，以及 `google/protobuf:^4.33.6`，以修复 [CVE-2026-6409](https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-p2gh-cfq4-4wjc)。PHP 7.x 无法安装该安全版本。若启用 PECL `protobuf` 扩展，也必须单独升级到 4.33.6 或更新的安全版本；Composer 不会升级已安装的 PHP 扩展。
+
+CI 使用 PHP 8.1、Swoole 4.8.13 和 [支持 PHP 8.1 的 phptars 修复](https://github.com/TarsPHP/tars-extension/pull/21)，验证 protobuf 消息、实际 HTTP/gRPC 路由、评论读写及框架缓存。部署前需要先为 PHP 8.1 编译安装该 phptars 版本。现有 Tars 组件依赖 `swoole_table` 等旧类名，请使用 Swoole 4.8 系列，不能直接替换为 Swoole 5/6。启用 OpenSSL 和 HTTP/2，并为评论服务启用 Redis 扩展。
+
+仓库 CI 只测试和生成本地压缩包，不再自动上传或发布到 Tars 平台。实际环境的 PHP 路径、服务注册和凭据由部署方配置；`travis/deploy.php` 保留供显式部署使用。
+
+Swoole 版本和编译选项见上述运行环境要求。
 需要安装 protoc c库，需要安装 protobuf php 扩展
  参考 https://github.com/protocolbuffers/protobuf/tree/master/php
 （google 官方文档如果看的比较辛苦 可以自己查询其他教程）
@@ -104,15 +110,16 @@ protocDstPath 用来代用protoc用来把message生成php 类的，生成在 pro
 7. 新建composer.json文件,内容如下:
 ```
 {
-    "name" : "tars-pb-server-demo",
+    "name" : "phptars/act-comment-pb-server-demo",
     "description": "tars pb server",
     "require": {
+        "php": ">=8.1",
         "phptars/tars-server": "~0.3",
         "phptars/tars-deploy": "~0.1",
         "phptars/tars-log": "~0.1",
         "phptars/tars2php": "~0.1",
         "ext-zip" : ">=0.0.1",
-        "google/protobuf": "^3.8"
+        "google/protobuf": "^4.33.6"
     },
     "autoload": {
         "psr-4": {
